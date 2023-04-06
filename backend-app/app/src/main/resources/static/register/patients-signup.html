@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>회원가입</title>  <!--tables.data에 연결할 상세 페이지-->
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="../assets/img/newlogo.png" rel="icon">
+  <link href="../assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.gstatic.com" rel="preconnect">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="../assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="../assets/vendor/quill/quill.snow.css" rel="stylesheet">
+  <link href="../assets/vendor/quill/quill.bubble.css" rel="stylesheet">
+  <link href="../assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+  <link href="../assets/vendor/simple-datatables/style.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="../assets/css/style.css" rel="stylesheet">
+
+  <!-- =======================================================
+  * Template Name: NiceAdmin
+  * Updated: Mar 09 2023 with Bootstrap v5.2.3
+  * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+  <style>
+
+    #doctor-form {
+    left: 50%; 
+    width:550px; 
+
+    }
+    .license-delete {
+      color: red;
+      font-weight: bold;
+    }
+    .license-delete:hover {
+      color: #717ff5;
+      text-decoration: none;
+    }
+
+    #d-license {
+     margin-right: 10px;
+    }
+    
+  </style>
+</head>
+
+<body>
+
+<!-- ======= Header ======= -->
+<header id="header" class="header fixed-top d-flex align-items-center">
+
+  <div class="d-flex align-items-center justify-content-between">
+    <a href="index.html" class="logo d-flex align-items-center">
+      <img src="../assets/img/newlogo.png" alt="">
+      <span class="d-none d-lg-block">MyClinic</span>
+    </a>
+    <i class="bi bi-list toggle-sidebar-btn"></i>
+  </div><!-- End Logo -->
+
+  <div class="search-bar">
+    <form class="search-form d-flex align-items-center" method="POST" action="#">
+      <input type="text" name="query" placeholder="Search" title="Enter search keyword">
+      <button type="submit" title="Search"><i class="bi bi-search"></i></button>
+    </form>
+  </div><!-- End Search Bar -->
+
+  <div class="top-menu">
+    <a href="pages-notice.html"  class="nav-link collapsed"><span>공지사항</span></a>
+    
+    <a href="doctors-community-main.html"  class="nav-link collapsed"><span>커뮤니티</span></a>
+
+    <a href="patients-signup.html"  class="nav-link collapsed"><span>회원가입(환자)</span></a>
+  </div>
+
+  <nav class="header-nav ms-auto">
+    <ul class="d-flex align-items-center">
+
+      <li class="nav-item dropdown">
+
+        <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
+          <i class="bi bi-bell"></i>
+          <span class="badge bg-primary badge-number">4</span>
+        </a><!-- End Notification Icon -->
+
+        <!--우측 상단 알림 -->
+        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
+          <li class="dropdown-header">
+            확인하지 않은 알림이 있습니다.
+            <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
+          </li>
+          <li>
+            <hr class="dropdown-divider">
+          </li>
+
+          <li class="notification-item">
+            <i class="bi bi-exclamation-circle text-warning"></i>
+            <div>
+              <h4>진료 답변 확인하기</h4>
+              <p>OOO 환자님 안녕하세요....</p>
+              <p>30분 전</p>
+            </div>
+          </li>
+
+          <li>
+            <hr class="dropdown-divider">
+          </li>
+
+          <li class="notification-item">
+            <i class="bi bi-x-circle text-danger"></i>
+            <div>
+              <h4>개인정보 보호 안내</h4>
+              <p>비밀번호를 변경해주세요</p>
+              <p>1 시간 전</p>
+            </div>
+          </li>
+
+          <li>
+            <hr class="dropdown-divider">
+          </li>
+        
+          <li>
+            <hr class="dropdown-divider">
+          </li>
+          <li class="dropdown-footer">
+            <a href="#">Show all notifications</a>
+          </li>
+
+        </ul><!-- End Notification Dropdown Items -->
+
+      </li><!-- End Notification Nav -->
+
+      <li class="nav-item dropdown pe-3">
+        <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+          <img src="../assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
+          <span class="d-none d-md-block dropdown-toggle ps-2">엄 진 영</span>
+        </a><!-- End Profile Iamge Icon -->
+      </li><!-- End Profile Nav -->
+
+    </ul>
+  </nav><!-- End Icons Navigation -->
+
+</header><!-- End Header -->
+
+ <!-- ======= Sidebar ======= -->
+ <aside id="sidebar" class="sidebar">
+
+  <ul class="sidebar-nav" id="sidebar-nav">
+
+    <li class="nav-heading">환자 전용 페이지</li>
+
+    <li class="nav-item">
+      <a class="nav-link " href="patients-profile.html">
+        <i class="bi bi-person"></i>
+        <span>내 정보</span>
+      </a>
+    </li><!-- End Profile Page Nav -->
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="pages-records.html">
+        <i class="bi bi-file-earmark"></i>
+        <span>진료 받기</span>
+      </a>
+    </li> 
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="patients-records.html">
+        <i class="bi bi-card-list"></i>
+        <span>나의 진료 기록</span>
+      </a>
+    </li><!-- End Register Page Nav -->
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="pages-faq.html">
+        <i class="bi bi-question-circle"></i>
+        <span>Q & A</span>
+      </a>
+    </li><!-- End F.A.Q Page Nav -->
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="pages-login.html">
+        <i class="bi bi-box-arrow-in-right"></i>
+        <span>로그인</span>
+      </a>
+    </li><!-- End Login Page Nav -->
+
+    
+    <!--
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="pages-blank.html">
+        <i class="bi bi-file-earmark"></i>
+        <span>Blank</span>
+      </a>
+    </li> End Blank Page Nav -->
+
+  </ul>
+
+</aside><!-- End Sidebar-->
+
+<main id="main" class="main">
+  <div class="pagetitle">
+    <h1>회원가입</h1>
+  </div>
+  <!-- End Page Title -->
+
+  <section class="section">
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="card" id="patients-form">
+          <div class="card-body">
+            <h5 class="card-title">환자 회원가입</h5>
+
+            <!-- General Form Elements -->
+            <form style= "width:500px;" id="patients-register-form" method="post">
+              <div>
+                <!-- 이미지 미리보기를 위한 영역 -->
+                <div
+                  id="preview-container"
+                  style="
+                    width: 120px;
+                    height: 120px;
+                    border-radius: 50%;
+                    overflow: hidden;
+                    margin-left: 150px;
+                    margin-bottom: 20px;
+                  "
+                >
+                  <img
+                    id="preview-img"
+                    src="../assets/img/default_profile.png"
+                    style="width: 100%; height: 100%;"
+                  />
+                </div>
+        
+                <!-- 파일 선택 버튼 -->
+                <div class="row mb-3">
+                  <label for="inputNumber" class="col-sm-2 col-form-label"  style="padding: 0%;"
+                    >프로필</label>
+                <div class="col-sm-6 ">
+                <input
+                  type="file"
+                  id="file-input"
+                  accept="image/*"
+                  name="file-input"
+                  class="form-control"
+                  onchange="previewImage(event);"
+                />
+              </div>
+            </div>
+            </div>
+
+              <div class="row mb-3 ">
+                <label for="id-input" class="col-sm-2 col-form-label" style="padding: 0%;"
+                  >ID</label
+                >                
+                <div class="col-sm-6 ">
+                  <input  type="text" name="id" class="form-control" id="id-input" required />
+                </div> 
+                  <div class="col-sm-4">
+                   <button type="button" id="check-duplicate-btn">중복확인</button>
+                  <div id="message"></div>
+                  </div>        
+                
+              </div>
+              
+              <div class="row mb-3">
+                <label for="password" 
+                class="col-sm-2 col-form-label"
+                style="padding: 0%;"
+                  >비밀번호</label
+                >
+                <div class="col-sm-6">
+                  <input type="password" name="password" id= "password" class="form-control" 
+                  placeholder="최소 8자 이상 숫자, 특수 문자를 포함하여 작성하세요."
+                  pattern="^(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$"
+                  required/>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <label for="confirmPassword" 
+                class="col-sm-2 col-form-label"
+                style="padding: 0%;"
+                  >비밀번호확인</label
+                >
+                <div class="col-sm-6">
+                  <input type="text" name="confirmPassword" id= "confirmPassword" class="form-control"required/>
+                </div>
+                <div id="password-message"></div>
+              </div>
+              <div class="row mb-3">
+                <label for="inputName" class="col-sm-2 col-form-label"  style="padding: 0%;"
+                  >이름</label
+                >
+<!-- 
+                <div class="col-md-6">
+                  <input class="form-control" placeholder="성" />
+                </div>
+              </div>
+              <div class="row mb-3">
+                <label
+                  for="inputName"
+                  class="col-sm-2 col-form-label"
+                ></label> -->
+
+                <div class="col-md-6">
+                  <input id="name" name="name" class="form-control" placeholder="이름" required />
+                </div>
+              </div>
+              <div class="row mb-3">
+                <label for="inputTel" class="col-3"  style="padding: 0%;"
+                  >휴대폰번호</label
+                >
+                <div class="col-sm-2">
+                  <input
+                    readonly
+                    type="text"
+                    class="form-control"
+                    placeholder="010"
+                    readonly
+                  />
+                </div>
+                <div class="col-sm-4">
+                  <input type="text" id="tel" name="tel" class="form-control" />
+                </div>
+                <!-- <div class="col-sm-2">
+                  <input type="text" class="form-control" />
+                </div> -->
+              </div>
+
+         
+              <div class="row mb-3">
+                <label for="inputNumber" class="col-sm-2 col-form-label"  style="padding: 0%;"
+                  >사진</label
+                >
+                <div class="col-sm-7">
+                  <input class="form-control" type="file" id="formFile" />
+                </div>
+              </div>
+              <div class="row-mb-3">
+                <label for="inputDate" class="col-sm-2 col-form-label"  style="padding: 0%;"
+                  >생년월일</label>
+                  <input type="date" name="birth" class="col-sm-7" required/>
+              </div>
+              <div class="row mb-3">
+                <div class="col-md-4">
+                  <label for="email-id" class="form-label"></label>
+                  </label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="email"
+                    id="email-id"
+                    placeholder="이메일"
+                    required
+                  />
+                </div>
+                <div class="col-md-4">
+                  <label 
+                  type="text" 
+                  for="email-domain" class="form-label"
+                    >                      
+                  </label>
+                  <select
+                    class="form-select"
+                    id="email-domain"
+                    required
+                  >
+                    <option selected disabled value="선택">선택</option>
+                    <option value="@naver.com">@naver.com</option>
+                    <option value="@daum.net">@daum.net</option>
+                    <option value="@nate.com">@nate.com</option>  
+                    <option value="@gmail.com">@gmail.com</option>
+                    <option value="@hanmail.net">@hanmail.net</option>
+                    <option value="직접입력">직접입력</option>
+                  </select>
+                </div>                      
+                <div class="col-md-4">
+                  <label for="email-direct" class="form-label"
+                    ></label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="email-direct"
+                    style="display: none"
+                  />
+                </div>
+              </div>
+
+              <fieldset class="row mb-3">
+                <legend class="col-form-label col-sm-2 pt-0"  style="padding: 0%;">성별</legend>
+                <div class="col-sm-10">
+                  <div class="form-check">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="gender"
+                      id="gender-m"
+                      value="0"
+                      checked
+                    />
+                    <label class="form-check-label" for="gender-m">
+                      남
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="gender"
+                      id="gender-w"
+                      value="1"
+                    />
+                    <label class="form-check-label" for="gender-w">
+                      여
+                    </label>
+                  </div>
+                </div>
+              </fieldset>
+                <!-- Active Table -->                     
+              <div class="row mb-3" >
+                <label for="inputPostNo" 
+                class="col-sm-2 col-form-label"
+                 style="padding: 0%;"
+                  >우편번호</label
+                >
+                <div class="col-sm-5">                  
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="postcode"
+                    placeholder="우편번호"
+                    name="addr"
+                  />
+                </div>
+                <div class="col-sm-5">    
+                <input
+                type="button"
+                onclick="sample4_execDaumPostcode()"
+                value="우편번호 찾기"
+              />
+              </div>
+            </div>
+
+              <div class="row mb-3">
+                <label
+                  for="inputBasicAddress"
+                  class="col-sm-2 col-form-label"
+                  style="padding: 0%;"
+                  >주소</label
+                >
+                <div class=" row mb-3 col-sm-5">
+                  <input type="text" id="roadAddress" placeholder="도로명주소" class="form-control" readonly/>                 
+                </div>
+
+                <div class=" row mb-3 col-sm-5">  
+                <input type="text" id="jibunAddress" placeholder="지번주소" class="form-control" readonly/>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <label
+                  for="inputBasicAddress"
+                  class="col-sm-2 col-form-label"
+                  style="padding: 0%;"
+                  ></label
+                >
+                <span id="guide" style="color: #999; display: none"></span>
+                <div class=" row mb-3 col-sm-5">
+                  <input type="text" id="detailAddress" placeholder="상세주소" class="form-control" />
+                </div>
+
+                <div class=" row mb-3 col-sm-5">
+                  <input type="text" id="sample4_extraAddress"
+                  placeholder="참고항목" class="form-control"
+                  readonly />
+                </div>
+              </div>
+
+              <div class="row mb-3">
+                <label
+                  for="drug"
+                  class="col-sm-2 col-form-label"
+                  name="drug"
+                  style="padding: 0%;"
+                  >특이사항1</label
+                >
+                <div class="col-sm-9">
+                  <input type="text" id="drug" name="drug" class="form-control" placeholder="특이사항1(복용 중인 약물)"/>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <label
+                  for="phy"
+                  class="col-sm-2 col-form-label"        
+                  style="padding: 0%;"
+                  >특이사항2</label
+                >
+                <div class="col-sm-9">
+                  <input type="detailAddress" id="phy" name="phy" class="form-control"  placeholder="특이사항2(지병여부)"/>
+                </div>
+              </div>                  
+              <div class="row mb-3">
+                <button type="button" class="btn btn-primary" id="btn-insert">
+                  가입완료
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer" class="footer">
+    <div class="copyright">
+      &copy; Copyright <strong><span>NiceAdmin</span></strong>. All Rights Reserved
+    </div>
+    <div class="credits">
+      <!-- All the links in the footer should remain intact. -->
+      <!-- You can delete the links only if you purchased the pro version. -->
+      <!-- Licensing information: https://bootstrapmade.com/license/ -->
+      <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/ -->
+      Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+    </div>
+  </footer><!-- End Footer -->
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="../assets/vendor/apexcharts/apexcharts.min.js"></script>
+  <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="../assets/vendor/chart.js/chart.umd.js"></script>
+  <script src="../assets/vendor/echarts/echarts.min.js"></script>
+  <script src="../assets/vendor/quill/quill.min.js"></script>
+  <script src="../assets/vendor/simple-datatables/simple-datatables.js"></script>
+  <script src="../assets/vendor/tinymce/tinymce.min.js"></script>
+  <script src="../assets/vendor/php-email-form/validate.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="../assets/js/main.js"></script>
+
+   <!-- 사용자가 추가한 스크립트 -->
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+   <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+   <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+   <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+   <!-- <script type='text/babel' src="doctor-board.js"></script> -->
+   <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+   <script>
+    document.querySelectorAll("input").forEach((input) => {
+      input.addEventListener("invalid", () => {
+        // 검증 후 폼 요소에 was-validated 클래스로 표시해 둔다
+        document.forms[0].classList.add("was-validated");
+      });
+    });
+
+    // 오류 메세지 사전을 만든다
+    const validityMessage = {
+      badInput: "[커스텀 메세지] 잘못된 입력입니다.",
+      patternMismatch: "[커스텀 메세지] 패턴에 맞게 입력하세요",
+      rangeOverflow: "[커스텀 메세지] 범위를 초과하였습니다",
+      rangeUnderflow: "[커스텀 메세지] 범위에 미달하였습니다",
+      stepMismatch: "[커스텀 메세지] 간격에 맞게 입력하세요",
+      tooLong: "[커스텀 메세지] 최대 글자 미만으로 입력하세요",
+      tooShort: "[커스텀 메세지] 최소 글자 미만으로 입력하세요",
+      typeMismatch: "[커스텀 메세지] 형식에 맞게 입력하세요",
+      valueMissing: "[커스텀 메세지] 이 필드를 반드시 입력하세요",
+    };
+
+    // validity 객체를 받아 메세지 맵에서 오류 메세지를 찾는다
+    function getMessage(validity) {
+      for (const key in validityMessage) {
+        if (validity[key]) {
+          return validityMessage[key];
+        }
+      }
+    }
+
+     //ID 중복 확인 버튼 클릭 이벤트
+
+    const idInput = document.querySelector('#id-input');
+      const messageDiv = document.querySelector('#message');
+      const checkDuplicateBtn = document.querySelector('#check-duplicate-btn');
+      let isDuplicate = true;
+   
+    checkDuplicateBtn.onclick = () => {
+        const id = idInput.value;
+
+        fetch(`http://localhost:8080/patients/check-duplicate?id=${id}`, {
+          method: 'GET'
+        })
+          .then((response) => response.json())
+          .then((result) => {
+            if (result.status === 'FAILURE') {
+              messageDiv.textContent = result.message;
+              isDuplicate = true;
+            } else {
+              messageDiv.textContent = result.message;
+              isDuplicate = false;
+            }
+          })
+          .catch((exception) => {
+            console.error('ID 중복 확인 중 오류 발생:', exception);
+            messageDiv.textContent = '오류가 발생했습니다. 다시 시도해주세요.';
+          });
+      };      
+      // 프로필 이미지
+      function previewImage(event) {
+        const input = event.target;
+        if (input.files && input.files[0]) {
+          const reader = new FileReader();
+          reader.onload = function (e) {
+            const previewImg = document.querySelector('#preview-img');
+            previewImg.src = e.target.result;
+          };
+          reader.readAsDataURL(input.files[0]);
+          console.log(input.files[0]);
+        } else {
+          const previewImg = document.querySelector('#preview-img');
+          previewImg.src = '../assets/img/default_profile.png'; // 기본 이미지 경로
+        }
+      }
+      //비밀번호 확인
+      const password = document.getElementById("password");
+      const confirmPassword = document.getElementById("confirmPassword");
+      const message = document.getElementById("password-message");
+
+      confirmPassword.addEventListener("input", function() {
+        if (password.value === confirmPassword.value) {
+          message.textContent = "비밀번호가 일치합니다.";
+          message.style.color = "green";
+        } else {
+          message.textContent = "비밀번호가 일치하지 않습니다.";
+          message.style.color = "red";
+        }
+      });
+
+    // 이메일 유효성 검사
+    const emailIdInput = document.querySelector("#email-id");
+    const emailDomainSelect = document.querySelector("#email-domain");
+    const emailDirectInput = document.querySelector("#email-direct");
+
+    emailIdInput.addEventListener("input", updateEmailValue);
+    emailDomainSelect.addEventListener("change", updateEmailValue);
+
+    function updateEmailValue() {
+      const emailId = emailIdInput.value;
+      const emailDomain = emailDomainSelect.value;
+      let emailValue = "";
+
+      if (emailId !== "" && emailDomain !== "직접입력") {
+        emailDirectInput.style.display = "none";
+        emailDirectInput.required = false;
+        emailDirectInput.removeAttribute("pattern");
+        emailValue = `${emailId}@${emailDomain}`;
+      } else if (emailId !== "" && emailDomain === "직접입력") {
+        emailDirectInput.style.display = "inline-block";
+        emailDirectInput.required = true;
+        emailDirectInput.pattern =
+          "^([!#-'*+/-9=?A-Z^-~-]+(\.[!#-'*+/-9=?A-Z^-~-]+)*|\[[\t -Z^-~]*])";
+        emailValue = `${emailId}@${emailDirectInput.value}`;
+      }
+
+      emailIdInput.setAttribute("value", emailValue);
+      return emailValue;
+    }
+
+    function sample4_execDaumPostcode() {
+      new daum.Postcode({
+        oncomplete: function (data) {
+          // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+          // 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
+          // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+          var roadAddr = data.roadAddress; // 도로명 주소 변수
+          var extraRoadAddr = ""; // 참고 항목 변수
+
+          // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+          // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+          if (data.bname !== "" && /[동|로|가]$/g.test(data.bname)) {
+            extraRoadAddr += data.bname;
+          }
+          // 건물명이 있고, 공동주택일 경우 추가한다.
+          if (data.buildingName !== "" && data.apartment === "Y") {
+            extraRoadAddr +=
+              extraRoadAddr !== ""
+                ? ", " + data.buildingName
+                : data.buildingName;
+          }
+          // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+          if (extraRoadAddr !== "") {
+            extraRoadAddr = " (" + extraRoadAddr + ")";
+          }
+
+          // 우편번호와 주소 정보를 해당 필드에 넣는다.
+          document.getElementById("postcode").value = data.zonecode;
+          document.getElementById("roadAddress").value = roadAddr;
+          document.getElementById("jibunAddress").value =data.jibunAddress;
+
+          // 참고항목 문자열이 있을 경우 해당 필드에 넣는다.
+          if (roadAddr !== "") {
+            document.getElementById("sample4_extraAddress").value =
+              extraRoadAddr;
+          } else {
+            document.getElementById("sample4_extraAddress").value = "";
+          }
+
+          var guideTextBox = document.getElementById("guide");
+          // 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
+          if (data.autoRoadAddress) {
+            var expRoadAddr = data.autoRoadAddress + extraRoadAddr;
+            guideTextBox.innerHTML = "(예상 도로명 주소 : " + expRoadAddr + ")";
+            guideTextBox.style.display = "block";
+          } else if (data.autoJibunAddress) {
+            var expJibunAddr = data.autoJibunAddress;
+            guideTextBox.innerHTML = "(예상 지번 주소 : " + expJibunAddr + ")";
+            guideTextBox.style.display = "block";
+          } else {
+            guideTextBox.innerHTML = "";
+            guideTextBox.style.display = "none";
+          }
+        },
+      }).open();
+    }
+
+     document.querySelector('#btn-insert').onclick = () => {
+      const form = document.querySelector('#patients-register-form');
+      const formData = new FormData(form);
+        if (isDuplicate) {
+         messageDiv.textContent = 'ID를 중복 확인하세요.';
+         return;
+        }
+
+        if (password.value !== confirmPassword.value) {
+         messageDiv.textContent = '비밀번호가 다릅니다';
+         return;
+        }
+        
+
+        const fileInput = document.querySelector('#file-input');
+
+        if (fileInput.files && fileInput.files[0]) {
+          formData.append('Url', fileInput.files[0]);
+          formData.append('phoName', fileInput.files[0].name);
+          formData.append('phoType', fileInput.files[0].type);
+        }
+
+        const tel = document.querySelector("input[name='tel']").value;
+        formData.set('tel', `${tel}`);
+
+        // 이메일 value 삽입
+        const emailValue = updateEmailValue();
+        formData.set('email', emailValue);
+
+        const zipcode = document.getElementById('postcode').value;
+        const roadAddress = document.getElementById('roadAddress').value;
+        const detailAddress = document.getElementById('detailAddress').value;
+        formData.set('addr', `${zipcode}: ${roadAddress} ${detailAddress}`);
+
+        const gender = document.querySelector("input[name='gender']").value;
+        formData.set('gender', `${gender}`);
+
+        const drug = document.querySelector("input[name='drug']").value;
+        formData.set('drug', `${drug}`);
+
+        const phy = document.querySelector("input[name='phy']").value;
+        formData.set('phy', `${phy}`);
+
+      if (form.checkValidity()) {
+        let json = JSON.stringify(Object.fromEntries(formData));
+
+        fetch('../patients', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: json,
+        })
+          .then((response) => response.json())
+          .then((result) => {
+            if (result.status == 'success') {
+              location.reload();
+              console.log('성공:', data);
+            } else {
+              alert('입력실패');
+              console.log(result.data);
+            }
+          })
+          .catch((exception) => {
+            alert('입력 중 오류 발생');
+            console.log(exception);
+            console.error('실패:', error);
+          });
+      } else {
+        form.reportValidity();
+      }
+    };
+
+    function submitFiles() {
+        let formData = new FormData();
+        let files = $('input[name=files]')[0].files;
+        if (files.length == 0) {
+          return;
+        }
+
+        $.ajax({
+          url: 'http://localhost:8080/patients/profileimg',
+          data: formData,
+          cache: false,
+          contentType: false,
+          processData: false,
+          type: 'POST',
+          success: function (data) {
+            console.log('데이터 업로드 성공');
+          },
+          error: function (e) {
+            console.log('데이터 업로드 실패');
+          },
+        });
+      }
+   </script>
+
+</body>
+
+</html>

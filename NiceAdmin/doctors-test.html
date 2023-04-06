@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
+  <script>
+    const data = {
+      id:"dssssdhd",
+      password: "1asda",
+      name: "1asd",
+      birth: new Date(),
+      email: "a1ddh65",
+      addr: "1",
+      gender: "1",
+      tel: "1231111adhs3d51122",
+      auth: false,
+      phoUrl: "1",
+      phoName: "1",
+      phoType: "1",
+      career: "1"
+    };
+
+    fetch("http://localhost:8080/doctors", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("성공:", data);
+      })
+      .catch((error) => {
+        console.error("실패:", error);
+      });
+  </script>
+</html>
