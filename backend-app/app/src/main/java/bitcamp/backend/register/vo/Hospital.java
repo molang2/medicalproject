@@ -11,4 +11,6 @@ public class Hospital {
   private String hosTime;
   private String hosSub;
   private String hosBusno;
+
+
 }

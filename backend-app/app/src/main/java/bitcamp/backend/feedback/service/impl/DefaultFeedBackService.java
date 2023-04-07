@@ -38,7 +38,7 @@ public class DefaultFeedBackService implements FeedBackService {
 
   @Override
   public void update(FeedBack feedBack) {
-
+    feedBackDao.update(feedBack);
   }
 
   @Override

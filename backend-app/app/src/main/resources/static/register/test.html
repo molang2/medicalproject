@@ -67,6 +67,24 @@
 
       <label>생년월일:</label>
       <input type="date" name="birth" required /><br />
+      <label>성별:</label>
+      <input
+        class="form-check-input"
+        type="radio"
+        name="gender"
+        id="gender-m"
+        value="0"
+        checked
+      />
+      <label class="form-check-label" for="gender-m"> 남 </label>
+      <input
+        class="form-check-input"
+        type="radio"
+        name="gender"
+        id="gender-w"
+        value="1"
+      />
+      <label class="form-check-label" for="gender-w"> 여 </label>
       <div>
         <label for="email-id">이메일 주소</label>
         <input type="text" id="email-id" name="email" required />
@@ -296,7 +314,6 @@
         const fileInput = document.querySelector('#file-input');
 
         if (fileInput.files && fileInput.files[0]) {
-          formData.append('Url', fileInput.files[0]);
           formData.append('phoName', fileInput.files[0].name);
           formData.append('phoType', fileInput.files[0].type);
         }
@@ -314,12 +331,16 @@
         formData.set('tel', `${telCarrier}: ${tel}`);
 
         if (form.checkValidity()) {
-          let json = JSON.stringify(Object.fromEntries(formData));
+          let url = '';
+          let json;
           new Promise((resolve) => {
-            console.log(formData);
-            submitFiles();
+            url = submitFiles();
+            console.log(url);
             resolve();
           }).then(() => {
+            formData.append('phoUrl', url);
+            json = JSON.stringify(Object.fromEntries(formData));
+            console.log(json);
             fetch('http://localhost:8080/doctors', {
               method: 'POST',
               headers: {
@@ -330,7 +351,7 @@
               .then((response) => response.json())
               .then((result) => {
                 if (result.status == 'success') {
-                  location.reload();
+                  // location.reload();
                   console.log('성공:', result);
                 } else {
                   alert('입력실패');
@@ -348,26 +369,30 @@
       };
 
       function submitFiles() {
+        let str = '';
         let formData = new FormData();
         let files = $('input[name=files]')[0].files;
         if (files.length == 0) {
           return;
         }
-
+        formData.append('files', files[0]);
         $.ajax({
           url: 'http://localhost:8080/doctors/profileimg',
           data: formData,
           cache: false,
+          async: false,
           contentType: false,
           processData: false,
           type: 'POST',
           success: function (data) {
-            console.log('데이터 업로드 성공');
+            str = data;
+            // console.log(str);
           },
           error: function (e) {
             console.log('데이터 업로드 실패');
           },
         });
+        return str;
       }
     </script>
   </body>

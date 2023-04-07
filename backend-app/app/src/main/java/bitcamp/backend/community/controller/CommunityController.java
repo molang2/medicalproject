@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import bitcamp.backend.community.service.CommunityImgService;
 import bitcamp.backend.community.service.CommunityService;
 import bitcamp.backend.community.vo.Community;
 import bitcamp.util.RestResult;
@@ -27,16 +28,22 @@ public class CommunityController {
   @Autowired
   private CommunityService communityService;
 
-  //  @GetMapping("/test")
-  //  public void test(){
-  //    communityService.get(7);
-  //    System.out.println(communityService);
-  //  }
+  @Autowired
+  private CommunityImgService communityImgService;
+
+  // @GetMapping("/test")
+  // public void test(){
+  // communityService.get(7);
+  // System.out.println(communityService);
+  // }
 
   @PostMapping
   public Object insert(@RequestBody Community community) {
+    RestResult restResult = new RestResult();
     communityService.add(community);
-    return new RestResult().setStatus(RestStatus.SUCCESS);
+    restResult.setData(community);
+    restResult.setStatus(RestStatus.SUCCESS);
+    return restResult;
   }
 
   @GetMapping("/list")
@@ -46,28 +53,25 @@ public class CommunityController {
 
   @GetMapping("{no}")
   public Object view(@PathVariable int no) {
-    return new RestResult().setStatus(RestStatus.SUCCESS).getData();
+    return new RestResult().setStatus(RestStatus.SUCCESS).setData(communityService.get(no))
+        .setPhoto(communityImgService.get(no));
   }
 
   @PutMapping("{no}")
-  public Object update(
-      @PathVariable int no,
-      @RequestBody Community community) {
+  public Object update(@PathVariable int no, @RequestBody Community community) {
 
     log.debug(community);
 
     community.setNo(no);
     communityService.update(community);
 
-    return new RestResult()
-        .setStatus(RestStatus.SUCCESS);
+    return new RestResult().setStatus(RestStatus.SUCCESS);
   }
 
   @DeleteMapping("{no}")
   public Object delete(@PathVariable int no) {
     communityService.delete(no);
-    return new RestResult()
-        .setStatus(RestStatus.SUCCESS);
+    return new RestResult().setStatus(RestStatus.SUCCESS);
   }
 
 

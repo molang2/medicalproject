@@ -52,6 +52,7 @@ repositories { // 의존 라이브러리가 업로드 되어있는 서버의 정
     mavenCentral()
 }
 
+
 // 어플리케이션에서 사용하는 외부 라이브러리의 정보
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-jdbc'
@@ -67,12 +68,14 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     
+    //implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
     implementation 'io.awspring.cloud:spring-cloud-starter-aws:2.4.4'
+    //implementation 'org.apache.ibatis:ibatis-core:3.0'
 }
 
 // run 명령을 실행할 때 run 명령으로 실행시킬 java Class 이름
 application {
-    mainClass = 'bitcamp.backend.user.App'
+    mainClass = 'bitcamp.backend.App'
 }
 
 // 이클립스 프로젝트 이름 설정하기

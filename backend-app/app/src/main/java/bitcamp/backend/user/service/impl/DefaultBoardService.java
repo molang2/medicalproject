@@ -47,4 +47,9 @@ public class DefaultBoardService implements BoardService {
       throw new RuntimeException("게시글이 존재하지 않습니다!");
     }
   }
+
+  @Override
+  public List<Board> plist(int i) {
+    return boardDao.findByPno(i);
+  }
 }

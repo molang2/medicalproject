@@ -16,4 +16,6 @@ public interface BoardService {
   void update(Board board);
 
   void delete(int no);
+
+  List<Board> plist(int i);
 }

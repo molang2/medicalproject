@@ -47,7 +47,6 @@ let str;
 
 if (window.localStorage.getItem("boardNo") != null) {
   str = window.localStorage.getItem("boardNo");
-  console.log(str)
   fetch("http://192.168.0.7:8080/boardNo", {
     method: 'POST',
     headers: {
@@ -60,9 +59,9 @@ if (window.localStorage.getItem("boardNo") != null) {
     .then(response => response.json())
     .then(data => {
       data = data.data;
-      $(".board-title").html("제목 : " + data.title);
-      $(".board-pain").html("증상 : " + data.pain);
-      $(".board-another").html("그 외 전달사항 : " + (data.another.split(",")[5] != "null" && data.another.split(",")[5].length > 0 ? data.another.split(",")[5] : "-"));
+      $(".board-title").html(data.title);
+      $(".board-pain").html(data.pain);
+      $(".board-another").html((data.another.split(",")[5] != "null" && data.another.split(",")[5].length > 0 ? data.another.split(",")[5] : "-"));
       $(".board-name").val(data.another.split(",")[0] != "null" && data.another.split(",")[0].length > 0 ? data.another.split(",")[0] : "-");
       $(".board-gender").val(data.another.split(",")[2] != "null" && data.another.split(",")[2].length > 0 ? data.another.split(",")[2] : "-");
       $(".board-age").val(data.another.split(",")[1] != "null" && data.another.split(",")[1].length > 0 ? data.another.split(",")[1] : "-");
@@ -108,7 +107,6 @@ if (window.localStorage.getItem("boardNo") != null) {
     .then(data => {
       if (data.status == "success") {
         data = data.data;
-        console.log(data)
         let feeds = [];
         data.forEach(feed => {
           if (feed.content.length > 25) {
@@ -146,7 +144,7 @@ class Sogyun extends React.Component {
       return (
         <li className="list-group-item d-flex justify-content-between align-items-start" onClick={() => {
           ReactDOM.createRoot(document.getElementById('sogyon-list')).render(
-            <FeedPage />
+            <FeedPage props={this.state.data}/>
           );
         }}>
           <div className="ms-2 me-auto">
@@ -158,8 +156,9 @@ class Sogyun extends React.Component {
     } else {
       return (
         <li className="list-group-item d-flex justify-content-between align-items-start" onClick={() => {
+          console.log(this.state.data)
           ReactDOM.createRoot(document.getElementById('sogyon-list')).render(
-            
+            <FeedPage props={this.state.data}/>
           );
         }}>
           <div className="ms-2 me-auto">
@@ -326,15 +325,16 @@ class FeedPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      data: props.props
     }
   }
   render() {
     return (
       <div className="FeedText">
         {/* <Btn /> */}
-        <DocInfo />
-        {/* <FedText />
-        <Review /> */}
+        <DocInfo props={this.state.data}/>
+        <FedText props={this.state.data}/>
+        <Review props={this.state.data}/>
       </div>
     )
   }
@@ -344,25 +344,85 @@ class DocInfo extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      data: props.props
     }
   }
   render() {
     return (
-      <div>
-        <div>
-          <span>이름</span>
-          <div>
-            <span>경력1</span>
-            <span>경력1</span>
+      <div className="top-area">
+        <div className="doc-area">
+          <span className="doc-name">{this.state.data.doc_name}</span>
+          <div className="doc-career">
+            <span>경력 사항 1</span>
+            <span>경력 사항 2</span>
           </div>
         </div>
-        <img />
-        <div>
-          <span>병원 이름</span>
-          <span>병원 정보</span>
-          <span>병원 주소</span>
+        <img className="doc-img"/>
+        <div className="hos-area">
+          <span className="hos-name">{this.state.data.hos_name}</span>
+          <span className="hos-info">병원 정보</span>
+          <span className="hos-addr">{this.state.data.hos_addr}</span>
         </div>
-      </div>
+      </div>  
     )
   }
 }
+
+class FedText extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      data: props.props
+    }
+  }
+  render() {
+    return (
+      <div className="middle-area">
+        <span className="fed-text">
+          -진단 내용-<br/>
+          {this.state.data.content}
+        </span>
+      </div>  
+    )
+  }
+}
+
+class Review extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      data: props.props
+    }
+  }
+  render() {
+    return (
+      <div className="review-area">
+        리뷰영역
+      </div>  
+    )
+  }
+}
+
+
+$(".patients-change-btn").click(() => {
+  fetch('http://192.168.0.7:8080/boardUpdata', {
+    method: 'POST', // 또는 'PUT'
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ // 스프링에 전달할 값
+      no: Number(str),
+      title: $(".board-title").html(),
+      pain: $(".board-pain").html(),
+      name: $(".board-name").val(),
+      age: $(".board-age").val(),
+      tel: $(".board-tel").val(),
+      addr: $(".board-addr").val(),
+      another: $(".board-another").val(),
+      gender: $("board-gender").val(),
+    }),
+  }).then(data => data.json())
+    .then(data => {
+      window.location.reload();
+    })
+})

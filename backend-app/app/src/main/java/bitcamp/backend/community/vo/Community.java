@@ -13,6 +13,7 @@ public class Community {
 
   private int no;
   private int doctorNo;
+  private String doctorName;
   private String title;
   private String content;
   private int category;

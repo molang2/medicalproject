@@ -325,7 +325,8 @@
                   <tr>
                     <!-- table 작업시에 <th><td> 갯수가 서로 일치하지 않으면 정렬 버튼 사라집니다 -->
                     <th scope="col">번호</th>
-                    <th scope="col" clas="cursor">제목</th>
+                    
+                    <th scope="col" style="width:700px">제목</th>
                     <th scope="col">작성자</th>
                     <th scope="col">카테고리</th>
                     <th scope="col">조회수</th>
@@ -336,9 +337,10 @@
                 <tbody class="table-group-divider" id="community-list">
                   <tr>
                     <td></td>
-                    <td class="cursor"></td>
+                    <td style="width:30px"></td>
+                    <td><a href="community-view.html?no={no}"></a></td>
                     <td></td>
-                    <td><span class="badge bg-danger text-dark"></span></td>
+                    <td></td>
                     <td></td>
                     <td></td>
                   </tr>
@@ -384,7 +386,7 @@
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
-  <script scr="community-list.js"></script>
+  <script src="community-list.js"></script>
 
   <!-- 사용자가 추가한 스크립트 -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>

@@ -43,9 +43,10 @@ class BoardImgDiv extends React.Component {
 
 let str;
 
+let myno = 1;
+
 if (window.localStorage.getItem("boardNo") != null) {
   str = window.localStorage.getItem("boardNo");
-  console.log(str)
   fetch("http://192.168.0.7:8080/boardNo", {
     method: 'POST',
     headers: {
@@ -60,7 +61,7 @@ if (window.localStorage.getItem("boardNo") != null) {
       data = data.data;
       $(".board-title").html("제목 : " + data.title);
       $(".board-pain").html("증상 : " + data.pain);
-      $(".board-another").html("그 외 전달사항 : " + (data.another.split(",")[5] != "null" && data.another.split(",")[5].length > 0 ? data.another.split(",")[5] : "-"));
+      $(".board-another").html("그 외 전달사항\n" + (data.another.split(",")[5] != "null" && data.another.split(",")[5].length > 0 ? data.another.split(",")[5] : "-"));
       $(".board-name").val(data.another.split(",")[0] != "null" && data.another.split(",")[0].length > 0 ? data.another.split(",")[0] : "-");
       $(".board-gender").val(data.another.split(",")[2] != "null" && data.another.split(",")[2].length > 0 ? data.another.split(",")[2] : "-");
       $(".board-age").val(data.another.split(",")[1] != "null" && data.another.split(",")[1].length > 0 ? data.another.split(",")[1] : "-");
@@ -109,6 +110,9 @@ if (window.localStorage.getItem("boardNo") != null) {
         console.log(data)
         let feeds = [];
         data.forEach(feed => {
+          if(feed.doc_no == myno){
+            $(".sogyon-btn").attr("disabled", true);
+          }
           if (feed.content.length > 25) {
             feed.title = feed.content.substr(0, 25) + " . . . ";
           }else {
@@ -116,9 +120,12 @@ if (window.localStorage.getItem("boardNo") != null) {
           }
           feeds.push(<Sogyun props={feed} />)
         })
-        ReactDOM.createRoot(document.getElementById('sogyon-list')).render(
-          feeds
-        );
+        new Promise(resolve => {
+          ReactDOM.createRoot(document.getElementById('sogyon-list')).render(
+            feeds
+          );
+          resolve();
+        })
       }
 
     })
@@ -143,8 +150,12 @@ class Sogyun extends React.Component {
       return (
         <li className="list-group-item d-flex justify-content-between align-items-start" onClick={() => {
           new Promise((resolve) => {
+            if(this.state.data.doc_no != myno) {
+              alert("본인 작성글만 조회 편집가능?")
+              return;
+            }
             ReactDOM.createRoot(document.getElementById('react-window')).render(
-              <NewWindow />)
+              <ChangeWindow />)
             resolve();
           })
             .then(() => {
@@ -164,8 +175,12 @@ class Sogyun extends React.Component {
       return (
         <li className="list-group-item d-flex justify-content-between align-items-start" onClick={() => {
           new Promise((resolve) => {
+            if(this.state.data.doc_no != myno) {
+              alert("본인 작성글만 조회 편집가능?")
+              return;
+            }
             ReactDOM.createRoot(document.getElementById('react-window')).render(
-              <NewWindow />)
+              <ChangeWindow />)
             resolve();
           })
             .then(() => {
@@ -310,7 +325,7 @@ class Btns extends React.Component {
             },
             body: JSON.stringify({ // 스프링에 전달할 값
               bno: str,
-              dno: 67,
+              dno: 1,
               popen: $(".check-pro").is(':checked'),
               visit: $(".check-visit").is(':checked'),
               money: $(".sogyon-money").val(),
@@ -319,6 +334,68 @@ class Btns extends React.Component {
           })
             .then(() => {
               ReactDOM.createRoot(document.getElementById('react-window')).render();
+            })
+
+        }}>
+          저 장
+        </button>
+        <button type="button" className="btn btn-secondary sogyon-close" onClick={() => {
+          ReactDOM.createRoot(document.getElementById('react-window')).render();
+        }}>
+          닫 기
+        </button>
+      </div>
+    )
+  }
+}
+
+class ChangeWindow extends React.Component {
+  constructor(props) {
+    super(props);
+    props = props.props;
+    this.state = {
+      data: props,
+    }
+  }
+  render() {
+    return (
+      <div id="new-windows">
+        <Selects />
+        <hr className="hr-solid" />
+        <Texts />
+        <Cbtns />
+      </div>
+    )
+  }
+}
+class Cbtns extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+    }
+  }
+  render() {
+    return (
+      <div className="sogyun-btns">
+        <button type="button" className="btn btn-secondary sogyon-update" onClick={() => {
+
+          fetch("http://192.168.0.7:8080/feedback/update", {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ // 스프링에 전달할 값
+              bno: Number(str),
+              dno: 1,
+              popen: $(".check-pro").is(':checked'),
+              visit: $(".check-visit").is(':checked'),
+              money: $(".sogyon-money").val(),
+              content: $(".sogyon-text").val()
+            })
+          })
+            .then(() => {
+              ReactDOM.createRoot(document.getElementById('react-window')).render();
+              window.location.reload();
             })
 
         }}>

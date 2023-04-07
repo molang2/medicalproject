@@ -1,6 +1,5 @@
 package bitcamp.backend.community.controller;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,7 +17,7 @@ import bitcamp.backend.community.vo.CommunityImg;
 import bitcamp.backend.user.service.ObjectStorageService;
 
 @RestController
-@RequestMapping("/communityimg")
+@RequestMapping("/communityImg")
 @CrossOrigin("*")
 @SpringBootApplication
 public class CommunityImgController {
@@ -49,30 +48,27 @@ public class CommunityImgController {
   //    return result;
   //  }
 
-  @CrossOrigin("*")
-  @PostMapping("/files")
-  public Object home(MultipartHttpServletRequest request) {
-
-
-    List<MultipartFile> files = request.getFiles("files");
-    List<String> strs = new ArrayList<>();
-
-    System.out.println("커뮤 번호 : " + request.getParameter("communityNo"));
-
-    for (MultipartFile file : files) {
-      System.out.println(file.getOriginalFilename() + ":" + file.getSize());
-      strs.add(objectStorageService.uploadFile(bucketName, file));
-    }
-
-
-    return strs;
-  }
+  //  @CrossOrigin("*")
+  //  @PostMapping("/files")
+  //  public Object home(MultipartHttpServletRequest request) {
+  //
+  //
+  //    List<MultipartFile> files = request.getFiles("files");
+  //    List<String> strs = new ArrayList<>();
+  //
+  //    System.out.println("커뮤 번호 : " + request.getParameter("comNo"));
+  //
+  //    for (MultipartFile file : files) {
+  //      System.out.println(file.getOriginalFilename() + ":" + file.getSize());
+  //      strs.add(objectStorageService.uploadFile(bucketName, file));
+  //    }
+  //    return strs;
+  //  }
 
   @CrossOrigin("*")
   @PostMapping("/insertComImg")
   public void imgCommunity(MultipartHttpServletRequest request) {
     List<MultipartFile> files = request.getFiles("files");
-    List<String> strs = new ArrayList<>();
     int c_No = Integer.parseInt(request.getParameter("comNo"));
 
     System.out.println("커뮤 사진번호 : " + c_No);
@@ -81,11 +77,13 @@ public class CommunityImgController {
       System.out.println(file.getOriginalFilename() + ":" + file.getSize());
       String str = objectStorageService.uploadFile(bucketName, file);
 
+      System.out.println(str);
+
       CommunityImg communityImg = new CommunityImg();
-      communityImg.setC_no(c_No);
-      communityImg.setUrl(str);
-      communityImg.setName(file.getOriginalFilename());
-      communityImg.setMIMETYPE(file.getContentType());
+      communityImg.setComNo(c_No);
+      communityImg.setImgUrl(str);
+      communityImg.setImgName(file.getOriginalFilename());
+      communityImg.setImgType(file.getContentType());
 
       communityImgService.add(communityImg);
     }
@@ -96,7 +94,7 @@ public class CommunityImgController {
   public Object findimgCommunity(@RequestBody HashMap<String, Object> param) {
     Map<String, Object> result = new HashMap<>();
 
-    List<CommunityImg> list = communityImgService.list(Integer.parseInt((String) param.get("cno")));
+    List<CommunityImg> list = communityImgService.get(Integer.parseInt((String) param.get("Cno")));
 
     if (list != null && list.size() > 0) {
       result.put("status", "success");

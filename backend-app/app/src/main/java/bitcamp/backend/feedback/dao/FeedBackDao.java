@@ -16,4 +16,6 @@ public interface FeedBackDao {
 
   FeedBack findByFeed(int bno, int dno);
 
+  void update(FeedBack feedBack);
+
 }

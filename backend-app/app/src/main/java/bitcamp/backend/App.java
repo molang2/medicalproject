@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import bitcamp.backend.feedback.service.FeedBackService;
 import bitcamp.backend.user.service.BoardImgService;
 import bitcamp.backend.user.service.BoardService;
 import bitcamp.backend.user.service.ObjectStorageService;
@@ -39,7 +40,8 @@ public class App {
 
   private String bucketName = "study-bucket/board-img";
 
-
+  @Autowired
+  FeedBackService backService;
 
   public static void main(String args[]) {
     SpringApplication.run(App.class, args);
@@ -83,7 +85,12 @@ public class App {
     str += param.get("addr1") + " " + param.get("addr2") + ",";
     str += param.get("another");
 
-    Board board = new Board((String) param.get("title"), ran + "", (String) param.get("pain"), str);
+    Board board = new Board();
+
+    board.setTitle((String) param.get("title"));
+    board.setSerial(ran + "");
+    board.setPain((String) param.get("pain"));
+    board.setAnother(str);
 
 
     boardService.add(board);
@@ -91,10 +98,12 @@ public class App {
     return boardService.get(board.getSerial());
   }
 
-
   @PostMapping("/boardSearch")
   public Object bSearch(@RequestBody HashMap<String, Object> param) {
     List<Board> boards = boardService.list((String) param.get("search"));
+    for (int i = 0; i < boards.size(); i++) {
+      boards.get(i).setFedcount(backService.blist(boards.get(i).getNo()).size());
+    }
     return boards;
   }
 
@@ -189,4 +198,76 @@ public class App {
 
     return result;
   }
+
+  @PostMapping("boardUpdata")
+  public Object changeBoard(@RequestBody HashMap<String, Object> param) {
+    Map<String, Object> result = new HashMap<>();
+    Board board = new Board();
+
+    String str = "";
+    str += param.get("name") + ",";
+    str += param.get("age") + ",";
+    str += param.get("gender") + ",";
+    str += param.get("tel") + ",";
+    str += param.get("addr") + ",";
+    str += param.get("another");
+
+    board.setNo((int) param.get("no"));
+    board.setAnother(str);
+    board.setPain((String) param.get("pain"));
+    board.setTitle((String) param.get("title"));
+
+    boardService.update(board);
+
+    System.out.println(board);
+
+    return result;
+  }
+
+
+  // @PostMapping("/insertComImg")
+  // public void imgCom(MultipartHttpServletRequest request) {
+  //
+  // List<MultipartFile> files = request.getFiles("files");
+  //
+  // int c_No = Integer.parseInt(request.getParameter("commuNo"));
+  //
+  // System.out.println("커뮤니티 번호 : " + c_No);
+  //
+  // for (MultipartFile file : files) {
+  // System.out.println(file.getOriginalFilename() + ":" + file.getSize());
+  // String str = objectStorageService.uploadFile(bucketName, file);
+  //
+  // System.out.println(str);
+  //
+  // }
+  // }
+  //
+  // @PostMapping("/community")
+  // public int test1() {
+  // System.out.println("test 요청");
+  // return 1;
+  // }
+
+  @PostMapping("/patientsBoards")
+  public Object pnoList(@RequestBody HashMap<String, Object> param) {
+    Map<String, Object> result = new HashMap<>();
+
+
+    List<Board> boards = boardService.plist((int) param.get("no"));
+    for (int i = 0; i < boards.size(); i++) {
+      boards.get(i).setFedcount(backService.blist(boards.get(i).getNo()).size());
+    }
+    if (boards.size() > 0) {
+      result.put("status", "success");
+      result.put("data", boards);
+    } else {
+      result.put("status", "fail");
+      System.out.println("빔");
+    }
+
+
+    return result;
+  }
+
 }

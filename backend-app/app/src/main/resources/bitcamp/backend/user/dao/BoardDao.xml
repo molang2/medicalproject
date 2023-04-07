@@ -49,6 +49,16 @@
     </if> 
   </select>
   
+  <update id="update" parameterType="bitcamp.backend.user.vo.Board">
+    UPDATE
+      app_symp_board b
+		SET
+		  b.symp_title=#{title},
+		  b.symp_cont1=#{pain},
+		  b.symp_cont2=#{another}
+		WHERE symp_no=#{no};
+  </update>
+  
   <select id="findByPassword" resultType="bitcamp.backend.user.vo.Board" parameterType="long">
     select 
       b.symp_no as no, 
@@ -62,6 +72,22 @@
     <if test="serial != 0 and serial != null">
     where 
       b.serial = #{serial}
+    </if> 
+  </select>
+  
+  <select id="findByPno" resultType="bitcamp.backend.user.vo.Board" parameterType="int">
+    select 
+      b.symp_no as no, 
+      b.symp_title as title,
+      b.serial as serial,
+      b.symp_date as createdDate,
+      b.symp_cont1 as pain,
+      b.symp_cont2 as another
+    from 
+      app_symp_board b
+    <if test="no != 0 and no != null">
+    where 
+      b.symp_no = #{no}
     </if> 
   </select>
   

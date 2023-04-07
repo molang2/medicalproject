@@ -60,7 +60,7 @@
       d_no=#{no}
   </select>
   
-  <select id="findByIdAndPassword" parameterType="map" resultMap="doctorMap">
+  <select id="findByIdAndPassword" parameterType="Map" resultMap="doctorMap">
     select
       d.d_no,
       m.m_id,

@@ -38,4 +38,17 @@
       f.symp_no=#{no}
   </select>
   
+  
+  <update id="update" parameterType="bitcamp.backend.feedback.vo.FeedBack">
+    UPDATE
+      app_feedback
+    SET
+      fed_visit=#{visit},
+      fed_popen=#{popen},
+      re_cont=#{content},
+      fed_money=#{money}
+    WHERE
+      symp_no=#{symp_no} and d_no=#{doc_no}
+  </update>
+  
 </mapper>

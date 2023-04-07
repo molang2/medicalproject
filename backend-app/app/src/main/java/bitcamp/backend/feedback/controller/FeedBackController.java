@@ -63,10 +63,26 @@ public class FeedBackController {
     return result;
   }
 
-  @PostMapping("/chenge")
+  @PostMapping("/update")
   public Object chengefeed(@RequestBody HashMap<String, Object> param) {
+    Map<String, Object> result = new HashMap<>();
+    System.out.println(param);
+    FeedBack feedBack = new FeedBack();
+    feedBack.setSymp_no((int) param.get("bno"));
+    feedBack.setDoc_no((int) param.get("dno"));
+    feedBack.setPopen((boolean) param.get("popen"));
+    feedBack.setVisit((boolean) param.get("visit"));
+    feedBack.setContent((String) param.get("content"));
+    feedBack.setMoney(Integer.parseInt((String) param.get("money")));
 
-    return null;
+    try {
+      backService.update(feedBack);
+      result.put("status", "success");
+    } catch (Exception e) {
+      result.put("status", "fail");
+    }
+    System.out.println(feedBack);
+    return result;
   }
 
   @PostMapping("/delete")

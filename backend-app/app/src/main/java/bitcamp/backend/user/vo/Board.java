@@ -12,6 +12,7 @@ public class Board {
   private Date createdDate;
   private int no;
 
+  private int fedcount;
   private String title;
   private String serial;
   private String pain;
@@ -23,13 +24,6 @@ public class Board {
   // String tel;
   // String addr1;
   // String addr2;
-  public Board(String title, String serial, String pain, String another) {
-    super();
-    this.title = title;
-    this.serial = serial;
-    this.pain = pain;
-    this.another = another;
-  }
 
 
 

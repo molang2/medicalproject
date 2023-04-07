@@ -6,10 +6,11 @@ import bitcamp.backend.community.vo.CommunityImg;
 
 @Mapper
 public interface CommunityImgDao {
-  public void insert(CommunityImg communityImg);
-
-  public List<CommunityImg> findByBno(int c_no);
-
-  public CommunityImg findByNo(int no);
+  void insert(CommunityImg communityImg);
+  List<CommunityImg> findAll();
+  CommunityImg findByComNo(int no);
+  int update(CommunityImg communityImg);
+  int delete(int no);
+  List<CommunityImg> findByCno(int no);
 
 }

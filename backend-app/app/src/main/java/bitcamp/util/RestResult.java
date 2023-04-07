@@ -5,7 +5,15 @@ public class RestResult {
   String errorCode;
   Object data;
   String message;
+  Object photo;
 
+  public Object getPhoto() {
+    return photo;
+  }
+  public RestResult setPhoto(Object photo) {
+    this.photo = photo;
+    return this;
+  }
   public String getStatus() {
     return status;
   }

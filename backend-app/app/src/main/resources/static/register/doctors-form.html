@@ -5,281 +5,151 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <style>
-      /* 검증 후에만 :invalid 스타일을 적용한다 */
-      form.was-validated input:invalid {
-        border-color: red;
-      }
-    </style>
   </head>
   <body>
-    <h1>회원가입</h1>
-    <form action="register" id="doctors-register-form" method="post">
-      <label>아이디:</label>
-      <input type="text" name="id" required /><br />
-
-      <label>비밀번호:</label>
-      <input
-        type="password"
-        name="password"
-        placeholder="최소 8자 이상 문자, 숫자, 특수 문자를 포함하여 작성하세요."
-        pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$"
-        required
-      /><br />
-
-      <label>이름:</label>
-      <input type="text" name="name" required /><br />
-
-      <label>생년월일:</label>
-      <input type="date" name="birth" required /><br />
-
+    <form id="doctors-register-form" method="post">
+      <label for="name">이름:</label>
+      <input type="text" id="name" name="name" required /><br />
       <div>
-        <label for="email-id">이메일 주소</label>
-        <input type="text" id="email-id" name="email" required />
-        @
-        <select id="email-domain" required>
-          <option value="">이메일 도메인을 선택하세요</option>
-          <option value="naver.com">naver.com</option>
-          <option value="gmail.com">gmail.com</option>
-          <option value="daum.net">daum.net</option>
-          <option value="직접입력">직접입력</option>
+        <label for="career">자격:</label>
+        <select id="career" name="career" required>
+          <option value="">선택하세요</option>
+          <option value="MD">의사</option>
+          <option value="DMD">치과의사</option>
+          <option value="KMD">한의사</option>
         </select>
-        <input type="text" id="email-direct" style="display: none" />
       </div>
-
-      <label>주소:</label>
-      <input type="text" id="sample4_postcode" placeholder="우편번호" />
-      <input
-        type="button"
-        onclick="sample4_execDaumPostcode()"
-        value="우편번호 찾기"
-      /><br />
-      <input type="text" id="sample4_roadAddress" placeholder="도로명주소" />
-      <input type="text" id="sample4_jibunAddress" placeholder="지번주소" />
-      <span id="guide" style="color: #999; display: none"></span>
-      <input type="text" id="sample4_detailAddress" placeholder="상세주소" />
-      <input
-        type="text"
-        id="sample4_extraAddress"
-        placeholder="참고항목"
-      /><br />
-
-      <label>성별:</label>
-      <input type="radio" name="gender" value="male" /> 남자
-      <input type="radio" name="gender" value="female" /> 여자<br />
-
-      <label>전화번호:</label>
-      <select name="tel_carrier">
-        <option value="">통신사 선택</option>
-        <option value="SKT">SKT</option>
-        <option value="KT">KT</option>
-        <option value="LG U+">LG U+</option>
-        <option value="알뜰폰">알뜰폰</option>
-      </select>
-      <input
-        type="tel"
-        name="tel_number"
-        placeholder="휴대폰 번호"
-        onkeyup="checkTelInput()"
-      />
-      <br />
-      <label>본인인증:</label>
-      <input type="checkbox" name="auth" id="authCheckbox" disabled /><br />
-
-      <label>프로필 사진:</label>
-      <input type="file" name="profile_photo" /><br />
-
-      <label>경력:</label>
-      <label>면허:</label>
-      <select name="license">
-        <option value="">면허 선택</option>
-        <option value="의사">의사</option>
-        <option value="치과의사">치과의사</option></select
-      ><br />
-
-      <label>전문의 자격증명:</label>
-      <select name="specialty">
-        <option value="">전공 선택</option>
-        <option value="FM">가정의학과</option>
-        <option value="TB">결핵과</option>
-        <option value="IM">내과</option>
-        <option value="PED">소아청소년과</option>
-        <option value="신경과">신경과</option>
-        <option value="">정신건강의학과</option>
-        <option value="외과">재활의학과</option>
-        <option value="외과">피부과</option>
-        <option value="외과">비뇨의학과</option>
-        <option value="외과">산부인과</option>
-        <option value="외과">성형외과</option>
-        <option value="외과">신경외과</option>
-        <option value="외과">안과</option>
-        <option value="외과">외과</option>
-        <option value="외과">이비인후과</option>
-        <option value="외과">정형외과</option>
-        <option value="외과">흉부외과</option>
-        <option value="외과">마취통증의학과</option>
-        <option value="외과">방사선종양학과</option>
-        <option value="외과">영상의학과</option>
-        <option value="외과">응급의학과</option>
-        <option value="외과">직업환경의학과</option>
-        <option value="외과">진단검사의학과</option>
-        <option value="외과">핵의학과</option>
-        <option value="외과">예방의학과</option>
-        <option value="외과">병리과</option></select
-      ><br />
-
-      <input type="submit" value="가입하기" id="btn-insert" />
+      <div id="specialist-container" style="display: none">
+        <label for="specialist">전문의 자격:</label>
+        <select
+          onchange="categoryChange(this)"
+          id="specialist"
+          required
+        ></select>
+      </div>
+      <div>
+        <form id="doctors-register-form"></form>
+      <input type="button" value="가입하기" id="btn-insert" />
     </form>
-  </body>
-  <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-  <script>
-    // 유효성 검사 기본
-    document.querySelectorAll('input').forEach((input) => {
-      input.addEventListener('invalid', () => {
-        // 검증 후 폼 요소에 was-validated 클래스로 표시해 둔다
-        document.forms[0].classList.add('was-validated');
-      });
-    });
+    <!-- 사용자가 추가한 스크립트 -->
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+   <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+   <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+   <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <script>
+    const specialistContainer = document.querySelector(
+        "#specialist-container"
+      );
+      const specialistSelect = document.querySelector("#specialist");
+      const careerSelect = document.querySelector("#career");
 
-    // 오류 메세지 사전을 만든다
-    const validityMessage = {
-      badInput: '[커스텀 메세지] 잘못된 입력입니다.',
-      patternMismatch: '[커스텀 메세지] 패턴에 맞게 입력하세요',
-      rangeOverflow: '[커스텀 메세지] 범위를 초과하였습니다',
-      rangeUnderflow: '[커스텀 메세지] 범위에 미달하였습니다',
-      stepMismatch: '[커스텀 메세지] 간격에 맞게 입력하세요',
-      tooLong: '[커스텀 메세지] 최대 글자 미만으로 입력하세요',
-      tooShort: '[커스텀 메세지] 최소 글자 미만으로 입력하세요',
-      typeMismatch: '[커스텀 메세지] 형식에 맞게 입력하세요',
-      valueMissing: '[커스텀 메세지] 이 필드를 반드시 입력하세요',
-    };
+      careerSelect.addEventListener("change", () => {
+        const selectedCareer = careerSelect.value;
+        const selectedSpecialist = specialistSelect.value;
 
-    // validity 객체를 받아 메세지 맵에서 오류 메세지를 찾는다
-    function getMessage(validity) {
-      for (const key in validityMessage) {
-        if (validity[key]) {
-          return validityMessage[key];
+        // 전문의 자격 select 보이도록 함
+        if (selectedCareer !== "") {
+          specialistContainer.style.display = "block";
+        } else {
+          specialistContainer.style.display = "none";
         }
-      }
-    }
 
-    // 이메일 유효성 검사
-    const emailIdInput = document.querySelector('#email-id');
-    const emailDomainSelect = document.querySelector('#email-domain');
-    const emailDirectInput = document.querySelector('#email-direct');
+        // 전문의 자격 select 옵션 설정
+        if (selectedCareer === "MD") {
+          specialistSelect.innerHTML = `
+        <option value="">선택하세요</option>
+        <option value="1">General Practitioner, 일반의</option>
+        <option value="2">Family medicine, 가정의학과</option>
+        <option value="3">Tuberculosis, 결핵과</option>
+        <option value="4">Internal medicine, 내과</option>
+        <option value="5">Pediatrics, 소아청소년과</option>
+        <option value="6">Neurology, 신경과</option>
+        <option value="7">Psychiatry, 정신건강의학과</option>
+        <option value="8">Rehabilitation medicine, 재활의학과</option>
+        <option value="9">Dermatology, 피부과</option>
+        <option value="10">Urology, 비뇨의학과</option>
+        <option value="11">Obstetrics &amp; Gynecology, 산부인과</option>
+        <option value="12">Plastic surgery, 성형외과</option>
+        <option value="13">Neurosurgery, 신경외과</option>
+        <option value="14">Ophthalmology, 안과</option>
+        <option value="15">General surgery, 외과</option>
+        <option value="16">Otolaryngology, 이비인후과</option>
+        <option value="17">Orthopaedic surgery, 정형외과</option>
+        <option value="18">Thoracic &amp; cardiovascular surgery, 흉부외과</option>
+        <option value="19">Anesthesiology, 마취통증의학과</option>
+        <option value="20">Radiation Oncology, 방사선종양학과</option>
+        <option value="21">Radiology, 영상의학과</option>
+        <option value="22">Emergency medicine, 응급의학과</option>
+        <option value="23">Occupational &amp; Environmental medicine, 직업환경의학과</option>
+        <option value="24">Laboratory medicine, 진단검사의학과</option>
+        <option value="25">Nuclear medicine, 핵의학과</option>
+        <option value="26">Preventive medicine, 예방의학과</option>
+        <option value="27">Pathology, 병리과</option>
+      `;
+        } else if (selectedCareer === "DMD") {
+          specialistSelect.innerHTML = `
+        <option value="">선택하세요</option>
+        <option value="1">General Practitioner, 일반의</option>
+        <option value="28">Oral &amp; Maxillofacial Surgery, 구강악안면외과</option>
+        <option value="29">Prosthodontics, 치과보철과</option>
+        <option value="30">Orthodontics, 치과교정과</option>
+        <option value="31">Pediatric Dentistry, 소아치과</option>
+        <option value="32">Periodontology, 치주과</option>
+        <option value="33">Conservative Dentistry, 치과보존과</option>
+        <option value="34">Oral Medicine, 구강내과</option>
+        <option value="35">Advaced General Dentistry, 통합치의학과</option>
+        <option value="36">Oral &amp; Maxillofacial Radiology, 영상치의학과</option>
+        <option value="37">Oral &amp; Maxillofacial Pathology, 구강병리과</option>
+        <option value="38">Preventive Dentistry, 예방치과</option>
+      `;
+        } else if (selectedCareer === "KMD") {
+          specialistSelect.innerHTML = `
+        <option value="">선택하세요</option>
+        <option value="1">General Practitioner, 일반의</option>
+        <option value="39">Internal Korean Medicine, 한방내과</option>
+        <option value="40">Korean Medicine Obstetrics &amp; Gynecology, 한방부인과</option>
+        <option value="41">Korean Medicine Pediatrics, 한방소아과</option>
+        <option value="42">Korean Neuropsychiatry, 한방 신경정신과</option>
+        <option value="43">Acupuncture &amp; Moxibustion, 침구과</option>
+        <option value="44">Korean Medical Ophthalmology, Otolaryngology &amp; Dermatology, 한방안ㆍ이비인후ㆍ피부과</option>
+        <option value="45">Korean Medicine Rehabilitation, 한방재활의학과</option>
+        <option value="46">Sasang Constitutional Medicine, 사상체질과</option>
+      `;
+        }
+      });
+      specialistSelect.onchange = function () {
+        selectedValue =
+          specialistSelect.options[specialistSelect.selectedIndex].value;
+        if (selectedValue !== "") {
+          const licenseDetailFile = document.createElement("input");
+          licenseDetailFile.type = "file";
+          licenseDetailFile.id = "license-file";
+          licenseDetailFile.name = "license-file";
+          licenseDetailFile.multiple = true;
+          // const licenseDetailInput = document.createElement("input");
+          // licenseDetailInput.type = "text";
+          // licenseDetailInput.id = "license-input";
+          // licenseDetailInput.name = "license-input";
+          // licenseDetailInput.className = "form-control";
+          // licenseDetailInput.placeholder = "면허증번호";
 
-    emailIdInput.addEventListener('input', updateEmailValue);
-    emailDomainSelect.addEventListener('change', updateEmailValue);
+          const form = document.getElementById("doctors-register-form");
+          form.appendChild(licenseDetailFile);
+          // form.appendChild(licenseDetailInput);
+        }
+      };
+      document.querySelector("#btn-insert").onclick = () => {
+        const form = document.querySelector("#doctors-register-form");
+        const formData = new FormData(form);
 
-    function updateEmailValue() {
-      const emailId = emailIdInput.value;
-      const emailDomain = emailDomainSelect.value;
-      let emailValue = '';
+        const selectedSpecialist = specialistSelect.value;
 
-      if (emailId !== '' && emailDomain !== '직접입력') {
-        emailDirectInput.style.display = 'none';
-        emailDirectInput.required = false;
-        emailDirectInput.removeAttribute('pattern');
-        emailValue = `${emailId}@${emailDomain}`;
-      } else if (emailId !== '' && emailDomain === '직접입력') {
-        emailDirectInput.style.display = 'inline-block';
-        emailDirectInput.required = true;
-        emailDirectInput.pattern =
-          "^([!#-'*+/-9=?A-Z^-~-]+(\.[!#-'*+/-9=?A-Z^-~-]+)*|\[[\t -Z^-~]*])";
-        emailValue = `${emailId}@${emailDirectInput.value}`;
-      }
+        formData.set("licenseName", `${selectedSpecialist}`);        
 
-      emailIdInput.setAttribute('value', emailValue);
-      return emailValue;
-    }
-
-    function sample4_execDaumPostcode() {
-      new daum.Postcode({
-        oncomplete: function (data) {
-          // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
-
-          // 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
-          // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-          var roadAddr = data.roadAddress; // 도로명 주소 변수
-          var extraRoadAddr = ''; // 참고 항목 변수
-
-          // 법정동명이 있을 경우 추가한다. (법정리는 제외)
-          // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
-          if (data.bname !== '' && /[동|로|가]$/g.test(data.bname)) {
-            extraRoadAddr += data.bname;
-          }
-          // 건물명이 있고, 공동주택일 경우 추가한다.
-          if (data.buildingName !== '' && data.apartment === 'Y') {
-            extraRoadAddr +=
-              extraRoadAddr !== ''
-                ? ', ' + data.buildingName
-                : data.buildingName;
-          }
-          // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
-          if (extraRoadAddr !== '') {
-            extraRoadAddr = ' (' + extraRoadAddr + ')';
-          }
-
-          // 우편번호와 주소 정보를 해당 필드에 넣는다.
-          document.getElementById('sample4_postcode').value = data.zonecode;
-          document.getElementById('sample4_roadAddress').value = roadAddr;
-          document.getElementById('sample4_jibunAddress').value =
-            data.jibunAddress;
-
-          // 참고항목 문자열이 있을 경우 해당 필드에 넣는다.
-          if (roadAddr !== '') {
-            document.getElementById('sample4_extraAddress').value =
-              extraRoadAddr;
-          } else {
-            document.getElementById('sample4_extraAddress').value = '';
-          }
-
-          var guideTextBox = document.getElementById('guide');
-          // 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
-          if (data.autoRoadAddress) {
-            var expRoadAddr = data.autoRoadAddress + extraRoadAddr;
-            guideTextBox.innerHTML = '(예상 도로명 주소 : ' + expRoadAddr + ')';
-            guideTextBox.style.display = 'block';
-          } else if (data.autoJibunAddress) {
-            var expJibunAddr = data.autoJibunAddress;
-            guideTextBox.innerHTML = '(예상 지번 주소 : ' + expJibunAddr + ')';
-            guideTextBox.style.display = 'block';
-          } else {
-            guideTextBox.innerHTML = '';
-            guideTextBox.style.display = 'none';
-          }
-        },
-      }).open();
-    }
-
-    document.querySelector('#btn-insert').onclick = () => {
-      const form = document.querySelector('#doctors-register-form');
-      const formData = new FormData(form);
-
-      // 이메일 value 삽입
-      const emailValue = updateEmailValue();
-      formData.set('email', emailValue);
-
-      if (form.checkValidity()) {
+        if (form.checkValidity()) {
         let json = JSON.stringify(Object.fromEntries(formData));
 
-        // const data = {
-        //   id: '22sd65s6dssssdhd',
-        //   password: '1asda',
-        //   name: '1asd',
-        //   birth: new Date(),
-        //   email: 'a1ddh65',
-        //   addr: '1',
-        //   gender: '1',
-        //   tel: '1231111adhs3d51122',
-        //   auth: false,
-        //   phoUrl: '1',
-        //   phoName: '1',
-        //   phoType: '1',
-        //   career: '1',
-        // };
-
-        fetch('../doctors', {
+        fetch('http://localhost:8080/license/doinsert', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -289,12 +159,15 @@
           .then((response) => response.json())
           .then((result) => {
             if (result.status == 'success') {
-              location.reload();
-              console.log('성공:', data);
+              license(result.data);
+              console.log('성공:', result.data);
             } else {
               alert('입력실패');
               console.log(result.data);
             }
+          })
+          .then(() => {
+              location.reload();
           })
           .catch((exception) => {
             alert('입력 중 오류 발생');
@@ -305,5 +178,47 @@
         form.reportValidity();
       }
     };
-  </script>
+    function license(no) {
+        let formData = new FormData();
+        let files = document.querySelector("#license-file").files;
+        if (files.length == 0) {
+          return;
+        }
+        for (let i = 0; i < files.length; i++) {
+          // if (
+          //   files[i].name.includes(".bmp") ||
+          //   files[i].name.includes(".jpeg") ||
+          //   files[i].name.includes(".jpg") ||
+          //   files[i].name.includes(".gif") ||
+          //   files[i].name.includes(".png") ||
+          //   files[i].name.includes(".tiff") ||
+          //   files[i].name.includes(".psd") ||
+          //   files[i].name.includes(".tga") ||
+          //   files[i].name.includes(".ai") ||
+          //   files[i].name.includes(".svg") ||
+          //   files[i].name.includes(".exif") ||
+          //   files[i].name.includes(".jfif")
+          // ) {
+            formData.append("files", files[i]);
+            formData.append("licenseNo", no);
+          // }
+        }
+        $.ajax({
+          url: "http://localhost:8080/license/insertLicense",
+          data: formData,
+          cache: false,
+          async: false,
+          contentType: false,
+          processData: false,
+          type: "POST",
+          success: function (data) {
+            console.log("데이터 업로드 성공");
+          },
+          error: function (e) {
+            console.log("데이터 업로드 실패");
+          },
+        });
+      }
+    </script>
+  </body>
 </html>

@@ -46,6 +46,20 @@
     height: 70px;
     font-size: 20px;
   }
+  .nav-item.logout {
+    display: none;
+  }
+
+  .nav-item.dropdown.pe-3{
+  display: none;
+}
+
+
+
+  
+
+
+  
   </style>
 </head>
 
@@ -72,9 +86,9 @@
   <div class="top-menu">
     <a href="pages-notice.html"  class="nav-link collapsed"><span>공지사항</span></a>
     
-    <a href="doctors-community-main.html"  class="nav-link collapsed"><span>커뮤니티</span></a>
+    <a href="community/community-list.html"  class="nav-link collapsed"><span>커뮤니티</span></a>
 
-    <a href="auth/form.html"  class="nav-link collapsed"><span>로그인</span></a>
+    <!-- <a href="auth/form.html"  class="nav-link collapsed login"><span class="login">로그인</span></a> -->
   </div>
 
   <nav class="header-nav ms-auto">
@@ -158,12 +172,12 @@
 
       
 
+  
       <li class="nav-item dropdown pe-3">
-
-        <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-          <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
+        <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">  
+          <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle"> 
           <span class="d-none d-md-block dropdown-toggle ps-2">엄 진 영</span>
-        </a><!-- End Profile Iamge Icon -->
+        </a>
 
         <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
           <li class="dropdown-header">
@@ -213,6 +227,12 @@
 
         </ul><!-- End Profile Dropdown Items -->
       </li><!-- End Profile Nav -->
+      <div class="top-menu nav-item dropdown pe-4">
+         <a href="auth/form.html" class="nav-link collapsed login"><span>로그인</span></a>
+         
+      </div>
+        <!-- <a href="auth/form.html"  class="nav-link collapsed login"><span class="login">로그인</span></a> -->
+        <!-- <span class="d-none d-md-block dropdown-toggle ps-2">엄 진 영</span> -->
 
     </ul>
   </nav><!-- End Icons Navigation -->
@@ -261,8 +281,8 @@
       </a>
     </li><!-- End Register Page Nav -->
 
-    <li class="nav-item">
-      <a class="nav-link collapsed" href="pages-login.html">
+    <li class="nav-item logout">
+      <a class="nav-link collapsed" href="index.html" onclick="logout(); return false">
         <i class="bi bi-box-arrow-in-right"></i>
         <span>로그아웃</span>
       </a>
@@ -363,7 +383,7 @@
 
   <!-- Vendor JS Files -->
   <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
-  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="assets/vendor/chart.js/chart.umd.js"></script>
   <script src="assets/vendor/echarts/echarts.min.js"></script>
   <script src="assets/vendor/quill/quill.min.js"></script>
@@ -381,6 +401,44 @@
   <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
   <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
   <script type='text/babel' src="doctor-boardlist.js"></script>
+  <script>
+    fetch("auth/user")
+      .then((response) => {
+        return response.json();
+      })
+      .then((result) => {
+        if (result.status == "success") {
+          document.querySelector(".nav-item.logout").classList.remove("nav-item", "logout");
+          document.querySelector(".nav-link.collapsed.login").remove();
+          document.querySelector(".nav-item.dropdown.pe-3").style.display = "block";
+        } 
+      })
+      .catch((exception) => {
+        alert("로그인 사용자 정보 조회 오류!");
+      });
+      
+      // document.querySelector("nav-link.nav-profile.d-flex.align-items-center.pe-0").remove();
+    //   <li class="nav-item logout">
+    //   <a class="nav-link collapsed" href="index.html" onclick="logout(); return false">
+    //     <i class="bi bi-box-arrow-in-right"></i>
+    //     <span>로그아웃</span>
+    //   </a>
+    // </li><!-- End Login Page Nav -->
+
+
+    function logout() {
+      fetch("auth/logout")
+        .then((response) => {
+          return response.json();
+        })
+        .then((result) => {
+          location.reload();
+        })
+        .catch((exception) => {
+          console.log(exception);
+        });
+    }
+  </script> 
 </body>
 
 </html>

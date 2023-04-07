@@ -19,4 +19,6 @@ public interface BoardDao {
   int update(Board b);
 
   int delete(int no);
+
+  List<Board> findByPno(int i);
 }

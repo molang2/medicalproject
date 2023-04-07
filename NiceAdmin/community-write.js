@@ -20,7 +20,7 @@ document.querySelector('.btn-submit').onclick = (e) => {
     .then((response) => response.json())
     .then((data) => {
       console.log("성공:", data);
-      submitFiles(data);
+      submitFiles(data.data.no);
     })
     .catch((error) => {
       console.error("실패:", error);
@@ -31,7 +31,7 @@ document.querySelector('.btn-submit').onclick = (e) => {
 
 
 function submitFiles(no) {
-
+console.log(no);
   let formData = new FormData();
   let files = document.querySelector(".community-files").files;
 
@@ -47,7 +47,7 @@ function submitFiles(no) {
     }
   }
   $.ajax({
-    url: 'http://localhost:8080/communityimg/insertComImg',
+    url: 'http://localhost:8080/communityImg/insertComImg',
     data: formData,
     cache: false,
     contentType: false,

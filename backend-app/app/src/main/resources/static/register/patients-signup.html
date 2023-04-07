@@ -297,7 +297,7 @@
                   >비밀번호확인</label
                 >
                 <div class="col-sm-6">
-                  <input type="text" name="confirmPassword" id= "confirmPassword" class="form-control"required/>
+                  <input type="password" name="confirmPassword" id= "confirmPassword" class="form-control"required/>
                 </div>
                 <div id="password-message"></div>
               </div>
@@ -341,15 +341,6 @@
                 </div> -->
               </div>
 
-         
-              <div class="row mb-3">
-                <label for="inputNumber" class="col-sm-2 col-form-label"  style="padding: 0%;"
-                  >사진</label
-                >
-                <div class="col-sm-7">
-                  <input class="form-control" type="file" id="formFile" />
-                </div>
-              </div>
               <div class="row-mb-3">
                 <label for="inputDate" class="col-sm-2 col-form-label"  style="padding: 0%;"
                   >생년월일</label>
@@ -380,11 +371,11 @@
                     required
                   >
                     <option selected disabled value="선택">선택</option>
-                    <option value="@naver.com">@naver.com</option>
-                    <option value="@daum.net">@daum.net</option>
-                    <option value="@nate.com">@nate.com</option>  
-                    <option value="@gmail.com">@gmail.com</option>
-                    <option value="@hanmail.net">@hanmail.net</option>
+                    <option value="naver.com">naver.com</option>
+                    <option value="daum.net">daum.net</option>
+                    <option value="nate.com">nate.com</option>  
+                    <option value="gmail.com">gmail.com</option>
+                    <option value="hanmail.net">hanmail.net</option>
                     <option value="직접입력">직접입력</option>
                   </select>
                 </div>                      
@@ -812,13 +803,17 @@
       }
     };
 
-    function submitFiles() {
+    function submitFiles(no) {
         let formData = new FormData();
         let files = $('input[name=files]')[0].files;
         if (files.length == 0) {
           return;
         }
-
+        for (let i = 0; i < files.length; i++) {
+        if (files[i].name.includes(".bmp") || files[i].name.includes(".jpeg") || files[i].name.includes(".jpg") || files[i].name.includes(".gif") || files[i].name.includes(".png") || files[i].name.includes(".tiff") || files[i].name.includes(".psd") || files[i].name.includes(".tga") || files[i].name.includes(".ai") || files[i].name.includes(".svg") || files[i].name.includes(".exif") || files[i].name.includes(".jfif")) {
+            formData.append("files", files[i]);
+          }
+        }
         $.ajax({
           url: 'http://localhost:8080/patients/profileimg',
           data: formData,
