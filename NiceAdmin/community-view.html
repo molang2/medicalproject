@@ -216,19 +216,27 @@
                   <div class="col-md-2">
                     <input type="text" class="form-control" placeholder="작성일" id="createdDate">
                   </div>
-
-                <div style=" margin-top: 20px; margin-bottom: 20px; width: 490px;  overflow: hidden; background-color: white; margin-left: auto; margin-right: auto;" class="carousel slide" data-bs-ride="carousel">
-                  <div class=" arousel-inner" style="width: 100%; margin-top: auto;" id="comImg">
-                    <div class="carousel-item active photocover" id="comImg" >
-                      <img src="" id="comImg" class="d-block w-100 comphoto" alt="...">
-                    </div>
-                  </div>
+              </div>
+             
+                <div style=" margin-top: 20px; width: 400px;  overflow: hidden; background-color: white; margin-left: auto; margin-right: auto;" class="carousel slide" data-bs-ride="carousel">           
+                    <div class="carousel-item active photocover" >
+                      <img src="" id="comImg" class="d-block w-100" >
+                    </div>              
                 </div>
+                <br>
+                <button type="button" class=" btn btn-outline-danger btn-sm" id="btn-img-delete"
+                        style="margin-left: 600px; margin-bottom: 0">삭제</button>
+
   
                 <div class="form-floating col-md-12 " style="margin-top: 20px;" >
                 <input type="text" id="content" class="form-control content" style="height: 300px;">
                 </div>
-              
+              <br>
+                <div class="text-center" >
+                  <button type="button" id="update-btn" class="btn btn-primary ">변경</button>
+                  <button type="button" id="delete-btn" class="btn btn-primary ">삭제</button>
+                </div>
+
               </div>   
             </div>
           </div>
@@ -236,7 +244,6 @@
         </div>   
 
         <div class="col-lg-12">
-
           <div class="card">
             <div class="card-body">
              
@@ -245,22 +252,21 @@
                   <table class="table">
                     <thead>
                       <tr>
-                        <!-- table 작업시에 <th><td> 갯수가 서로 일치하지 않으면 정렬 버튼 사라집니다 -->
-                        <th scope="col">번호</th>
-                        <th scope="col">내용</th>
-                        <th scope="col">작성자</th>
-                        <th scope="col">작성일</th>
+                        <th>번호</th>
+                        <th style="width: 500px;">내용</th>
+                        <th>작성자</th>
+                        <th>작성일</th>
+                        <th> </th>
                       </tr>
                     </thead>
-                    <tbody class="table-group-divider" >
+                    <tbody class="table-group-divider" id="recomment-list" >
                       <tr>
-                        <td>11</td>
-                        <td>samplesamplesamplesamplesamplesamplesamplesamplesamplesamplesample</td>
-                        <td>doctor1</td>
-                        <td>today</td>
+                        <td></td>
+                        <td><p></p></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
                       </tr>
-    
-    
                     </tbody>
                   </table>
                   
@@ -268,8 +274,23 @@
              
             </div>
           </div>
-
         </div> 
+
+        <div class="col-lg-12">
+          <div class="card">
+            <div class="card-body">
+              <div class="form-floating col-md-12 " style="margin-top: 20px;">
+                <textarea class="form-control recomment"  id="floatingTextarea" style="height: 100px;" placeholder="댓글 입력"> </textarea>
+              </div>
+              <div class="text-center"  style="margin-top: 20px;" >
+                <button type="button" id="rec-save-btn" class="btn btn-primary ">저장</button>
+                <button type="button" id="former-btn" class="btn btn-secondary">이전</button>
+                <button type="button" id="rec-delete-btn" class="btn btn-primary ">삭제</button>
+              </div>
+
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 

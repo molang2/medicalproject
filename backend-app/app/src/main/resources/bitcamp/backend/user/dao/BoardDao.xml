@@ -13,17 +13,19 @@
 
   <insert id="insert" parameterType="bitcamp.backend.user.vo.Board" 
           useGeneratedKeys="true" keyColumn="board_id" keyProperty="no">
-    insert into app_symp_board (symp_title, symp_cont1, symp_cont2, serial)
-    values(#{title}, #{pain}, #{another}, #{serial})
+    insert into app_symp_board (p_no, symp_title, symp_cont1, symp_cont2, serial, filter)
+    values(#{pno}, #{title}, #{pain}, #{another}, #{serial}, #{filter})
   </insert>
   
   <select id="findAll" resultType="bitcamp.backend.user.vo.Board" parameterType="string">
     select 
       b.symp_no as no, 
+      b.p_no as pno, 
       b.symp_title as title,
       b.symp_date as createdDate,
       b.symp_cont1 as pain,
-      b.symp_cont2 as another
+      b.symp_cont2 as another,
+      b.filter
     from 
       app_symp_board b
     <if test="keyword != '' and keyword != null">
@@ -36,11 +38,13 @@
   <select id="findByNo" resultType="bitcamp.backend.user.vo.Board" parameterType="int">
     select 
       b.symp_no as no, 
+      b.p_no as pno, 
       b.symp_title as title,
       b.serial as serial,
       b.symp_date as createdDate,
       b.symp_cont1 as pain,
-      b.symp_cont2 as another
+      b.symp_cont2 as another,
+      b.filter
     from 
       app_symp_board b
     <if test="no != 0 and no != null">
@@ -55,13 +59,22 @@
 		SET
 		  b.symp_title=#{title},
 		  b.symp_cont1=#{pain},
-		  b.symp_cont2=#{another}
+		  b.symp_cont2=#{another},
+		  b.filter=#{filter}
 		WHERE symp_no=#{no};
   </update>
+  
+  <delete id="delete" parameterType="int">
+    DELETE
+    FROM
+	    app_symp_board
+    WHERE symp_no=#{no};
+  </delete>
   
   <select id="findByPassword" resultType="bitcamp.backend.user.vo.Board" parameterType="long">
     select 
       b.symp_no as no, 
+      b.p_no as pno, 
       b.symp_title as title,
       b.serial as serial,
       b.symp_date as createdDate,
@@ -78,6 +91,7 @@
   <select id="findByPno" resultType="bitcamp.backend.user.vo.Board" parameterType="int">
     select 
       b.symp_no as no, 
+      b.p_no as pno, 
       b.symp_title as title,
       b.serial as serial,
       b.symp_date as createdDate,
@@ -85,10 +99,8 @@
       b.symp_cont2 as another
     from 
       app_symp_board b
-    <if test="no != 0 and no != null">
     where 
-      b.symp_no = #{no}
-    </if> 
+      b.p_no = #{no}
   </select>
   
 </mapper>

@@ -13,15 +13,14 @@ public class Member {
   private String name;
   private String email;
   private String addr;
-  private String gender;
+  private boolean gender;
   private String tel;
   private boolean auth;
   private String phoUrl;
   private String phoName;
   private String phoType;
+  private boolean passwordcheck;
 
-  @JsonFormat(
-      shape = Shape.STRING,
-      pattern = "yyyy-MM-dd")
+  @JsonFormat(shape = Shape.STRING, pattern = "yyyy-MM-dd")
   private Date birth;
 }

@@ -5,8 +5,9 @@ import bitcamp.backend.register.vo.HosPhoto;
 
 public interface HosPhotoService {
   void add(HosPhoto hosPhoto);
-  List<HosPhoto> list();
-  HosPhoto get(int no);
-  HosPhoto get(String id, String password);
+  List<HosPhoto>get(int no);
+  void update(HosPhoto hosPhoto);
   void delete(int no);
+  void deleteh(int no);//병원의 모든사진 지우기
+  List<HosPhoto>hget(int no);
 }

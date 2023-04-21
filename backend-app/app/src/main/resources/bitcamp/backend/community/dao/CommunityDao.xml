@@ -64,20 +64,22 @@
   </select>
   
   <update id="update" parameterType="community">
-    update app_community set
-     com_no=#{no}, 
-     com_tile=#{title}, 
-     com_date=#{createdDate}, 
-     com_cont=#{content}, 
-     com_view=#{viewCnt}, 
-     filter=#{filter}, 
-     com_area=#{area} 
-    where com_no=#{no}
+   update 
+    app_community c
+   join
+    app_category cat on c.cat_no = cat.cat_no
+   set 
+	  c.com_tile = #{title},
+	  c.cat_no = #{category},
+	  c.com_cont = #{content},
+    c.filter = #{filter}
+	where 
+	  c.com_no = #{no}
   </update>
   
   <delete id="delete" parameterType="int">
-    delete from app_community
-    where com_no=#{no}
+   delete from app_community 
+    where com_no=#{no}	    
   </delete>
   
   <update id="increaseViewCount" parameterType="int">

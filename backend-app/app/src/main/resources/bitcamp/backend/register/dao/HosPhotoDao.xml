@@ -13,7 +13,7 @@
   </resultMap>
 
   <insert id="insert" parameterType="hosPhoto" 
-          useGeneratedKeys="true" keyProperty="no" keyColumn="hos_photo_no">
+          useGeneratedKeys="true" keyProperty="photoNo" keyColumn="pho_no">
     insert into app_hos_photo(hos_no, pho_name, pho_filename, pho_type)
     values( #{hospitalNo}, #{hosPhotoUrl}, #{hosPhotoFilename}, #{hosPhotoType})
   </insert>
@@ -53,15 +53,27 @@
     where 
       pho_no=#{no}
   </select>
-  
-  <delete id="delete" parameterType="int">
-    delete from app_hos_photo
-    where pho_no=#{no}
-  </delete>
-  
-  <delete id="deleteOfBoard" parameterType="int">
+
+  <select id="findByHno" parameterType="int" resultMap="hos_photoMap">
+  select
+      hos_no, 
+      pho_no, 
+      pho_name, 
+      pho_filename, 
+      pho_type
+    from 
+      app_hos_photo
+    where 
+      hos_no=#{no}
+  </select>
+    
+  <delete id="deleteImg" parameterType="int">
     delete from app_hos_photo 
     where pho_no=#{no}
   </delete>
+  
+   <delete id="delete" parameterType="int">
+    delete from app_hos_photo
+    where hos_no=#{no}
+  </delete>
 </mapper>
-

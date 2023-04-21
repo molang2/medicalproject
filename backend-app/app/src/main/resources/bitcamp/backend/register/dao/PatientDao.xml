@@ -37,7 +37,15 @@
       m.m_name, 
       m.m_email, 
       m.m_tel,
+      m.m_auth,
+      m.m_photo,
+      m.pho_filename,
+      m.pho_type,
+      m.addr,
+      m.m_bday,
+      m.m_gender,
       p.p_phy,
+      p.p_no, 
       p.p_drug 
     from 
       app_patient as p
@@ -49,13 +57,22 @@
   <select id="findByNo" parameterType="int" resultMap="patientMap">
     select 
       m.m_id, 
+      m.m_pw, 
       m.m_name, 
       m.m_email, 
-      m.m_tel
+      m.m_gender,
+      m.m_bday,
+      m.m_tel,
+      m.addr,
+      m.m_photo,
+      m.pho_filename,
+      m.pho_type,
       p.p_phy,
-      p.p_drug  
+      p.p_drug,
+      p.p_drug,
+      p.p_no
     from 
-      app_patient as p
+      app_patient p
       inner join app_member m on p.p_no = m.m_no
     where 
       p_no=#{no}
@@ -70,7 +87,13 @@
       m.m_tel,
       m.m_email,
       p.p_phy,
-      p.p_drug  
+      p.p_drug,
+      m.addr,
+      m.m_photo,
+      m.m_bday,
+      m.pho_filename,
+      m.pho_type,
+      m.m_gender
     from
       app_patient p
       inner join app_member m on p.p_no = m.m_no
@@ -86,7 +109,7 @@
   <update id="update" parameterType="patient">
     update app_patient set
       p_phy=#{phy},
-      p_drug=#{drug} 
+      p_drug=#{drug}
     where p_no=#{no}
   </update>
   

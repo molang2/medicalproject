@@ -19,11 +19,12 @@ public interface MemberDao {
 
   int delete(int no);
 
+  void updateImg(Member member);
+
+  int updatePw(Member member);
+
+  Member findByTel(String tel);
+
 }
-
-
-
-
-
 
 

@@ -2,7 +2,6 @@
 
 document.querySelector('.btn-submit').onclick = (e) => {
 
-
   fetch("http://localhost:8080/community", {
     method: "POST",
     headers: {
@@ -55,6 +54,8 @@ console.log(no);
     type: 'POST',
     success: function (data) {
       console.log("데이터 업로드 성공");
+      location.href = 'doctors-community-main.html';
+      
     },
     error: function (e) {
       console.log("데이터 업로드 실패");

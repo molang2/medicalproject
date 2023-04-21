@@ -195,16 +195,6 @@
           <span>로그아웃</span>
         </a>
       </li><!-- End Login Page Nav -->
-
-      
-      <!--
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="pages-blank.html">
-          <i class="bi bi-file-earmark"></i>
-          <span>Blank</span>
-        </a>
-      </li> End Blank Page Nav -->
-
     </ul>
 
   </aside><!-- End Sidebar-->
@@ -224,114 +214,79 @@
     
     <section class="section">
       <div class="row">
-        <div class="container">
-          <div class="row gx-3">
-            <div class="col-md-6"> 
-              <div class="card cursor"  onclick="location.href='community-news.html'">
-                <div class="row">
-                  <div class="col-7">
-                    <img src="assets/img/card.jpg" class="img-thumbnail" alt="...">
-                  </div>
-                  <div class="col-5">
-                    <div class="card-body" >
-                      <h5 class="card-title"><strong>이 달의 이슈 토론</strong></h5>
-                      <p class="card-text">메가도스(megadose) 요법이란 적정 권장량의 100~200배에 달하는비타민 C를 섭취하는 방식을 말합니다. 
-                        메가도스 용법이 국내에 소개된지 어언 20년, 과연 괜찮은걸까요?
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>  
-            </div>
-            <div class="col-6">
+        
+            
+            <div class="col-lg-6">
               <div class="card">
                 <div class="card-body">
-                  <h5 class="card-title"><strong>실시간 핫 이슈</strong></h5>
-                  <p>최근 상담글에서 비전문의들이 부정확한 정보...</p>
-                  
+                  <h5 class="card-title"><strong>실시간 인기 게시글</strong></h5>
+                  <ul>
+                    <li><p id="hot-posting1"></p></li>
+                    <li><p id="hot-posting2"></p></li>
+                  </ul>
                 </div>
               </div>
             </div>
-          </div>
         </div>
-        <div class="col-12">
-          <div class="card"> 
-            <div class="card-body">
-              <h4 class="card-title"><strong>최근 게시글</strong></h4>
-              <!-- <p>Add lightweight datatables to your project with using the <a href="https://github.com/fiduswriter/Simple-DataTables" target="_blank">Simple DataTables</a> library. Just add <code>.datatable</code> class name to any table you wish to conver to a datatable</p> -->
 
-              <!-- Table with stripped rows -->
-              <table class="table datatable table-hover cursor">
-                <thead> 
-                  <tr>
-                    <!-- table 작업시에 <th><td> 갯수가 서로 일치하지 않으면 정렬 버튼 사라집니다 -->
-                    <th scope="col">번호</th>
-                    <th scope="col">제목</th>
-                    <th scope="col">카테고리</th>
-                    <th scope="col">작성자</th>
-                    <th scope="col">조회수</th> 
-                    <th scope="col">추천</th>
-                    <th scope="col">작성일</th>
-                  </tr> 
-                </thead>
-                <tbody class="table-group-divider">
-                  <tr class>
-                    
-                    <td>1</td>
-                    <td>65세 이상 전문의 46% '쉰다'…의료취약지 활용법 주목</td>
-                    <td><span class="badge bg-danger text-dark">의학</span></td>
-                    <td>doctor1</td>
-                    <td>14000</td>
-                    <td>48444</td>
-                    <td>2023-03-23</td>
-                  </tr>
-                  
-                  <tr>
-                   
-                    <td>2</td>
-                    <td>흉부외과 개멋있다</td>
-                    <td><span class="badge bg-warning">썰</span></td>
-                    <td>doctor2</td>
-                    <td>336</td>
-                    <td>55</td>
-                    <td>2023-03-25</td>
-                  </tr>
-
-                  <tr>
-                   
-                    <td>2</td>
-                    <td>2023 의대 순위</td>
-                    <td><span class="badge bg-success">썰</span></td>
-                    <td>doctor3</td>
-                    <td>32</td>
-                    <td>21</td>
-                    <td>2023-03-25</td>
-                  </tr>
-           
-                </tbody>
-              </table>
-              <!-- End Table with stripped rows -->
-
-              <ul class="pagination">
-                <li class="page-item disabled">
-                  <a
-                    class="page-link"
-                    href="#"
-                    tabindex="-1"
-                    aria-disabled="true"
-                    >Previous</a
-                  >
-                </li>
-                <li class="page-item active" aria-current="page"><a class="page-link" href="#">1</a></li>
-                <li class="page-item">
-                  <a class="page-link" href="#">2</a>
-                </li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item">
-                  <a class="page-link" href="#">Next</a>
-                </li>
-              </ul>
-
+              <section class="section">
+                <div class="row">
+                  <div class="col-lg-12">
+                    <div class="card">
+                      <div class="card-body">
+                        <h5 class="card-title"><strong>커뮤니티 게시글 목록</strong></h5>
+                        <table class="table">
+                          <thead>
+                            <tr>
+                              <!-- table 작업시에 <th><td> 갯수가 서로 일치하지 않으면 정렬 버튼 사라집니다 -->
+                              <th scope="col">번호</th>
+                              <th scope="col" style="width:500px">제목</th>
+                              <th scope="col">작성자</th>
+                              <th scope="col">카테고리</th>
+                              <th scope="col">조회수</th>
+                              <th scope="col">작성일</th>
+                            </tr>
+                          </thead>
+          
+                          <tbody class="table-group-divider" id="community-list">
+                            <tr>
+                              <td></td>
+                              <td><a href="community-view.html?no={no}"></a></td>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                       
+                        <div style="margin-top: 20px;">
+                          <button type="button" id="btn-write" class="btn btn-primary">글쓰기</button>
+                        <ul class="pagination">
+                          <li class="page-item disabled">
+                            <a
+                              class="page-link"
+                              href="#"
+                              tabindex="-1"
+                              aria-disabled="true"
+                              >Previous</a
+                            >
+                          </li>
+                          <li class="page-item active" aria-current="page"><a class="page-link" href="#">1</a></li>
+                          <li class="page-item">
+                            <a class="page-link" href="#">2</a>
+                          </li>
+                          <li class="page-item"><a class="page-link" href="#">3</a></li>
+                          <li class="page-item">
+                            <a class="page-link" href="#">Next</a>
+                          </li>
+                        </ul>
+                        </div>
+                      </div>
+                    </div>
+              </section>
+          
+             
             </div>
           </div>
 
@@ -370,6 +325,7 @@
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
+  <script src="community-lists.js"></script>
 
 </body>
 

@@ -18,6 +18,7 @@ public class DefaultCommunityService implements CommunityService{
   @Override
   public void add(Community community) {
     communityDao.insert(community);
+
   }
 
   @Override
@@ -34,8 +35,9 @@ public class DefaultCommunityService implements CommunityService{
 
   @Override
   @Transactional
-  public void update(Community c) {
-    communityDao.update(c);
+  public void update(Community community) {
+    System.out.println(community);
+    communityDao.update(community);
   }
 
   @Override
@@ -43,4 +45,6 @@ public class DefaultCommunityService implements CommunityService{
   public void delete(int no) {
     communityDao.delete(no);
   }
+
+
 }

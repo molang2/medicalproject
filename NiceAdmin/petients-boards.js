@@ -28,7 +28,7 @@ if (window.localStorage.getItem("boardNo") != null) {
 
 }
 
-fetch("http://192.168.0.7:8080/patientsBoards", {
+fetch("http://localhost:8080/patientsBoards", {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json',

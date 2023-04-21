@@ -9,5 +9,6 @@ public interface HospitalService {
   Hospital get(int no);
   void update(Hospital hospital);
   void delete(int no);
+  boolean findByTel(String tel);
 }
 

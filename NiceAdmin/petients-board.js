@@ -92,10 +92,10 @@ if (window.localStorage.getItem("boardNo") != null) {
           imgs
         );
       }
-
+ 
     })
 
-  fetch("http://192.168.0.7:8080/feedback/findByBno", {
+  fetch("http://localhost:8080/feedback/findByBno", {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -137,7 +137,7 @@ class Sogyun extends React.Component {
       title: props.title,
       pro: props.popen,
       data: props
-    }
+    }  
   }
   render() {
     if (this.state.pro) {
@@ -340,28 +340,33 @@ class FeedPage extends React.Component {
   }
 }
 
+
+
+
 class DocInfo extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       data: props.props
     }
-  }
+  } 
   render() {
     return (
-      <div className="top-area">
+      <div className="top-area text-center">
         <div className="doc-area">
-          <span className="doc-name">{this.state.data.doc_name}</span>
-          <div className="doc-career">
-            <span>경력 사항 1</span>
-            <span>경력 사항 2</span>
-          </div>
+            <img className="doc-img" src={this.state.data.doc_image} alt="의사 이미지"/>
+            <span className="doc-name">
+              <i className="bx bx-user"></i>{' '}{this.state.data.doc_name}
+            </span>
         </div>
-        <img className="doc-img"/>
+        <div className="doc-career">
+          <span class="badge custom-badge text-dark"><i class="fas fa-solid fa-certificate"></i>{' '}경력 사항</span>
+        </div>
+            
         <div className="hos-area">
-          <span className="hos-name">{this.state.data.hos_name}</span>
-          <span className="hos-info">병원 정보</span>
-          <span className="hos-addr">{this.state.data.hos_addr}</span>
+          <span className="hos-name"><i class="bx bx-plus-medical"></i>{' '}{this.state.data.hos_name}</span>
+          <span className="hos-info" ><i class="fas fa-stethoscope"></i>{' '}병원 진료 과목</span>
+          <span className="hos-addr"><i class="bi-hospital"></i>{' '}{this.state.data.hos_addr}</span>
         </div>
       </div>  
     )

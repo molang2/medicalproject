@@ -12,12 +12,11 @@
  <result column="pho_type" property="imgType"/>
  </resultMap>
 
-  <insert id="insert" parameterType="communityImg" >
+  <insert id="insertImg" parameterType="communityImg" >
     insert into app_comm_photo (com_no, pho_name, pho_filename, pho_type)
     value (#{comNo}, #{imgUrl}, #{imgName}, #{imgType});
   </insert>
-  
-  
+   
   <select id ="findByCno" resultMap="communityImgMap" parameterType="int">
     select 
       c.com_no,
@@ -30,9 +29,14 @@
       on p.com_no=c.com_no
     where 
       p.com_no=#{no}
-      
-  
   </select>
+  
+  <delete id="deleteImg" parameterType="int">
+    delete from app_comm_photo p
+    where com_no=#{no}
+  </delete>
+  
+  
   
   
 </mapper>

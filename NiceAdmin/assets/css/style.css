@@ -33,8 +33,13 @@ body {
 #patients-form {
   left: 50%; 
   width:550px; 
-
   }
+
+#btn-recomment-delete {
+  --bs-btn-padding-y: .25rem; 
+  --bs-btn-padding-x: .5rem; 
+  --bs-btn-font-size: .45rem;
+}
 
 a {
   color: #4154f1;

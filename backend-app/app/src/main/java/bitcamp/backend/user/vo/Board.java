@@ -11,12 +11,14 @@ public class Board {
   @JsonFormat(shape = Shape.STRING, pattern = "yyyy-MM-dd")
   private Date createdDate;
   private int no;
+  private int pno;
 
   private int fedcount;
   private String title;
   private String serial;
   private String pain;
   private String another;
+  private boolean filter;
 
   // String name;
   // int age;

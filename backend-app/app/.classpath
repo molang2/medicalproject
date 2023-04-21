@@ -63,6 +63,11 @@
 			<attribute name="gradle_used_by_scope" value="main,test"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry sourcepath="C:/Users/JunZero/scoop/apps/gradle/current/.gradle/caches/modules-2/files-2.1/org.apache.httpcomponents.client5/httpclient5/5.2.1/6f7ee311b403e9ff5d04e9128ea6a0fca4eb0a43/httpclient5-5.2.1-sources.jar" kind="lib" path="C:/Users/JunZero/scoop/apps/gradle/current/.gradle/caches/modules-2/files-2.1/org.apache.httpcomponents.client5/httpclient5/5.2.1/c900514d3446d9ce5d9dbd90c21192048125440/httpclient5-5.2.1.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry sourcepath="C:/Users/JunZero/scoop/apps/gradle/current/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-starter-json/3.0.1/295d8d7a7d1565a8ca3819669f2bdce9890580da/spring-boot-starter-json-3.0.1-sources.jar" kind="lib" path="C:/Users/JunZero/scoop/apps/gradle/current/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-starter-json/3.0.1/e409ce80cf518c619d59e44f0173a7e728f75da2/spring-boot-starter-json-3.0.1.jar">
 		<attributes>
 			<attribute name="gradle_used_by_scope" value="main,test"/>
@@ -164,6 +169,16 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry sourcepath="C:/Users/JunZero/scoop/apps/gradle/current/.gradle/caches/modules-2/files-2.1/org.slf4j/slf4j-api/2.0.6/e5127f7758d47c789645d37725ab9262ea38873e/slf4j-api-2.0.6-sources.jar" kind="lib" path="C:/Users/JunZero/scoop/apps/gradle/current/.gradle/caches/modules-2/files-2.1/org.slf4j/slf4j-api/2.0.6/88c40d8b4f33326f19a7d3c0aaf2c7e8721d4953/slf4j-api-2.0.6.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="C:/Users/JunZero/scoop/apps/gradle/current/.gradle/caches/modules-2/files-2.1/org.apache.httpcomponents.core5/httpcore5-h2/5.1.5/6f2e000bd1bf4db44d6078ff6bd1a6b2c879c7ab/httpcore5-h2-5.1.5-sources.jar" kind="lib" path="C:/Users/JunZero/scoop/apps/gradle/current/.gradle/caches/modules-2/files-2.1/org.apache.httpcomponents.core5/httpcore5-h2/5.1.5/624660339afd5006d427457e6b10b10b32fd86f1/httpcore5-h2-5.1.5.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="C:/Users/JunZero/scoop/apps/gradle/current/.gradle/caches/modules-2/files-2.1/org.apache.httpcomponents.core5/httpcore5/5.1.5/659cd2087dc45f09adf78716d8fac685cffe78e9/httpcore5-5.1.5-sources.jar" kind="lib" path="C:/Users/JunZero/scoop/apps/gradle/current/.gradle/caches/modules-2/files-2.1/org.apache.httpcomponents.core5/httpcore5/5.1.5/df9da3a1fa2351c4790245400ed28d78a8ddd3fc/httpcore5-5.1.5.jar">
 		<attributes>
 			<attribute name="gradle_used_by_scope" value="main,test"/>
 		</attributes>
