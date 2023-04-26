@@ -1,3 +1,7 @@
+const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+
+
 class Ptr extends React.Component {
   constructor(props) {
     super(props);
@@ -37,7 +41,11 @@ class Dtr extends React.Component {
             className="btn btn-success"
             style={{ width: 50, height: 25, padding: 0, fontSize: "70%" }}
             onClick={() => {
-              ReactDOM.createRoot($(".new-windows")[0]).render(this.state.licenseList);
+              ReactDOM.createRoot($(".new-windows")[0]).render(
+                //<div className="new-windows border border-2">
+                this.state.licenseList
+                //</div>
+                );
             }}
           >
             증명
@@ -57,7 +65,11 @@ class Dtr extends React.Component {
             className="btn btn-danger"
             style={{ width: 50, height: 25, padding: 0, fontSize: "70%" }}
             onClick={() => {
-              ReactDOM.createRoot($(".new-windows")[0]).render(this.state.licenseList);
+              ReactDOM.createRoot($(".new-windows")[0]).render(
+                //<div className="new-windows border border-2">
+                this.state.licenseList
+                //</div>
+                );
             }}
           >
             증명필요
@@ -69,13 +81,26 @@ class Dtr extends React.Component {
   }
 }
 
-<button
-  type="button"
-  className="btn btn-danger"
-  style={{ width: 50, height: 25, padding: 0, fontSize: "70%" }}
->
-  증명필요
-</button>
+fetch(`http://localhost:8080/auth/user`, {
+  method: 'GET'
+})
+  .then(response => response.json())
+  .then(data => {
+    if (data.status == "success") {
+      return data.data;
+    } else {
+      location.href = "index.html"
+    }
+    return data.data
+  })
+  .then((user) => {
+    if(user.admin) {
+      myno = user.no
+    }else {
+      location.href = "index.html"
+    }
+
+  })
 
 fetch("http://localhost:8080/patients")
   .then((response) => response.json())
@@ -127,13 +152,14 @@ fetch("http://localhost:8080/doctors")
 function DocList(props) {
   return (
     <div className="new-window">
-      <h2>면허증 - 자격증 리스트</h2>
+      <h2>면허/자격증 리스트</h2>
       <ul className="list-group doctor-licence-list">
         {props.props}
       </ul>
       <div className="btn-content">
         <button type="button" className="btn btn-primary license-close" onClick={() => {
           ReactDOM.createRoot($(".new-windows")[0]).render();
+  
         }}>
           닫기
         </button>

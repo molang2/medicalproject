@@ -1,24 +1,22 @@
-/**
-* Template Name: NiceAdmin
-* Updated: Mar 09 2023 with Bootstrap v5.2.3
-* Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
-* Author: BootstrapMade.com
-* License: https://bootstrapmade.com/license/
-*/
+@font-face {
+    font-family: 'SUIT-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
 
-/*--------------------------------------------------------------
-# General
---------------------------------------------------------------*/
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;700&display=swap');
+* {
+  font-family: 'SUIT-Regular' !important;
+}
 
 :root {
   scroll-behavior: smooth;
 }
 
 body {
-  font-family: 'Noto Sans KR', sans-serif;
   background: #f6f9ff;
   color: #444444;
+  padding-bottom : 50px;
 }
 
 .cursor {
@@ -28,6 +26,10 @@ body {
 .container {
   width: 1200px;
   max-width: none !important;
+}
+
+.custom-tooltip {
+  --bs-tooltip-bg: var(--bs-primary);
 }
 
 #register-form {
@@ -1327,26 +1329,31 @@ h6 {
 /*--------------------------------------------------------------
 # Footer
 --------------------------------------------------------------*/
+.footer-img-container {
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+}
+
+.tooltip-container {
+  display: flex;
+  margin-top: 20px;
+  justify-content: center; 
+  
+}
+
 .footer {
-  padding: 20px 0;
-  font-size: 14px;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background: #ffffff;
   transition: all 0.3s;
   border-top: 1px solid #cddfff;
-}
-
-.footer .copyright {
-  text-align: center;
-  color: #012970;
-}
-
-.footer .credits {
-  padding-top: 5px;
-  text-align: center;
-  font-size: 13px;
-  color: #012970;
+  margin-top:50px;
 }
 
 #naver_id_login img{
-  width: 350px;
-  height: 60px;
+  width: 200px;
+  height: 40px;
+  margin-left: 75px;
 }

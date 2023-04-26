@@ -48,6 +48,7 @@
       .card-body {
         padding: var(--bs-card-spacer-y) var(--bs-card-spacer-x);
       }
+
       /* 
       #profile-preview {
         min-width: 180px;
@@ -93,16 +94,12 @@
       <!-- End Search Bar -->
 
       <div class="top-menu">
-        <a href="pages-notice.html" class="nav-link collapsed"
-          ><span>공지사항</span></a
+        <a href="hospitals-list.html" class="nav-link collapsed"
+          ><span>병원</span></a
         >
 
         <a href="doctors-community-main.html" class="nav-link collapsed"
           ><span>커뮤니티</span></a
-        >
-
-        <a href="patients-signup.html" class="nav-link collapsed"
-          ><span>회원가입(환자)</span></a
         >
       </div>
 
@@ -218,7 +215,7 @@
         </li>
 
         <li class="nav-item">
-          <a class="nav-link collapsed" href="">
+          <a class="nav-link collapsed" href="QnQ.html">
             <i class="bi bi-question-circle"></i>
             <span>문의하기</span>
           </a>
@@ -234,18 +231,18 @@
         </li>
         <!-- End Login Page Nav -->
         <script>
-          $('.logout').click(() => {
+          $(".logout").click(() => {
             console.log(11);
             fetch(`http://localhost:8080/auth/logout`, {
-              method: 'GET',
+              method: "GET",
             })
               .then((response) => response.json())
               .then((data) => {
-                if (data.status == 'success') {
-                  location.href = '';
+                if (data.status == "success") {
+                  location.href = "";
                 } else {
-                  alert('로그아웃 실패');
-                  location.href = '';
+                  alert("로그아웃 실패");
+                  location.href = "";
                 }
               });
           });
@@ -378,73 +375,79 @@
     <script>
       let profileId;
       fetch(`http://localhost:8080/auth/user`, {
-        method: 'GET',
+        method: "GET",
       })
         .then((response) => response.json())
         .then((data) => {
-          if (data.status == 'success') {
-            document.querySelector('#username').innerHTML = data.data.name;
+          if (data.status == "success") {
+            document.querySelector("#username").innerHTML = data.data.name;
             console.log(data.data);
             return data.data;
           } else {
-            location.href = '../auth/patients-login.html';
+            location.href = "index.html";
           }
         })
         .then((user) => {
+          if (user.phy !== undefined) {
+            myno = user.no;
+          } else {
+            console.log(user.phy);
+            location.href = "index.html";
+          }
           profileId = user.id;
         });
 
-      const passwordInput = document.getElementById('password');
+      const passwordInput = document.getElementById("password");
       const passwordValidationMsg = document.getElementById(
-        'password-validation-msg'
+        "password-validation-msg"
       );
-      const checkPasswordBtn = document.getElementById('check-password-btn');
+      const checkPasswordBtn = document.getElementById("check-password-btn");
 
-      checkPasswordBtn.addEventListener('click', () => {
+      checkPasswordBtn.addEventListener("click", () => {
         // $("#btn-insert").prop('disabled', true);
-        const form = document.getElementById('check-password-form');
+        const form = document.getElementById("check-password-form");
         const formData = new FormData(form);
 
         const password = passwordInput.value;
 
-        formData.append('id', profileId);
+        formData.append("id", profileId);
 
         let json = JSON.stringify(Object.fromEntries(formData));
         console.log(json);
 
-        fetch('http://localhost:8080/patients/check-mypage', {
-          method: 'POST',
+        fetch("http://localhost:8080/patients/check-mypage", {
+          method: "POST",
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
           },
           body: json,
         })
           .then((response) => response.json())
           .then((result) => {
-            if (result.status == 'success') {
+            if (result.status == "success") {
               console.log(result);
               console.log(result.data);
               // passwordValidationMsg.textContent = '올바른 비밀번호입니다.';
               // passwordInput.classList.remove('is-valid', 'is-invalid');
               // passwordInput.classList.add('is-valid');
               // passwordValidationMsg.style.color = '#198754';
-              location.replace('./patients-profile.html');
+              location.replace("./patients-profile.html");
             } else {
-              alert('잘못 된 회원 정보');
-              passwordValidationMsg.textContent = '비밀번호가 틀립니다.';
-              passwordInput.classList.remove('is-valid', 'is-invalid');
-              passwordInput.classList.add('is-invalid');
-              passwordValidationMsg.style.color = '#dc3545';
+              alert("잘못 된 회원 정보");
+              passwordValidationMsg.textContent = "비밀번호가 틀립니다.";
+              passwordInput.classList.remove("is-valid", "is-invalid");
+              passwordInput.classList.add("is-invalid");
+              passwordValidationMsg.style.color = "#dc3545";
             }
           })
           .then(() => {})
           .catch((exception) => {
-            console.error('오류 발생:', exception);
+            console.error("오류 발생:", exception);
             passwordValidationMsg.textContent =
-              '오류가 발생했습니다. 다시 시도해주세요.';
-            passwordInput.classList.remove('is-valid', 'is-invalid');
-            passwordInput.classList.add('is-invalid');
-            passwordValidationMsg.style.color = '#dc3545';
+              "오류가 발생했습니다. 다시 시도해주세요.";
+            passwordInput.classList.remove("is-valid", "is-invalid");
+            passwordInput.classList.add("is-invalid");
+            passwordValidationMsg.style.color = "#dc3545";
           });
       });
     </script>

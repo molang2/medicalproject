@@ -10,12 +10,13 @@ public class FeedBack {
   private int symp_no;
   private int doc_no;
 
-  @JsonFormat(shape = Shape.STRING, pattern = "yyyy-MM-dd")
+  @JsonFormat(shape = Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
   private Date createdDate;
 
   private String content;
   private String doc_name;
   private String doc_license;
+  private String doc_career; // 의사테이블 - career
   private String hos_name;
   private String hos_addr;
   private int money;

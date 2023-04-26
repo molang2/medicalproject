@@ -1,7 +1,9 @@
 let patientNo = 0;
 let samePw = false;
 patientNo = 0;
-
+if(sessionStorage.getItem("token") != null) {
+  $(".pass-change").css("display", "none");
+}
 fetch(`http://localhost:8080/auth/user`, {
   method: 'GET'
 })
@@ -12,10 +14,15 @@ fetch(`http://localhost:8080/auth/user`, {
       console.log(data.data)
       return data.data;
     } else {
-      location.href = "../auth/patients-login.html"
+      location.href = 'index.html';
     }
   })
   .then((user) => {
+    if (user.phy !== undefined) {
+    } else {
+      console.log(user.phy)
+      location.href = 'index.html';
+    }
     patientNo = user.no;
     if (patientNo > 0) {
       fetch(`http://localhost:8080/patients/${patientNo}`, {
@@ -104,12 +111,12 @@ function checkPw() {
   let pw = document.querySelector(".change-pw").value;
   let checkpw = document.querySelector(".change-pw-check").value;
   if (pw == checkpw) {
-    $(".change-pw-check").css("border", "2px solid #0d62fd");
-    $(".change-pw").css("border", "2px solid #0d62fd");
+    $(".change-pw-check").css("border", "2px solid #198754");
+    $(".change-pw").css("border", "2px solid #198754");
     samePw = true;
   } else {
-    $(".change-pw-check").css("border", "2px solid #ff5a5a");
-    $(".change-pw").css("border", "2px solid #ff5a5a");
+    $(".change-pw-check").css("border", "2px solid #dc3545");
+    $(".change-pw").css("border", "2px solid #dc3545");
     samePw = false;
   }
 }

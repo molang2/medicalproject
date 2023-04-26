@@ -754,7 +754,7 @@
         const zipcode = document.getElementById('postcode').value;
         const roadAddress = document.getElementById('roadAddress').value;
         const detailAddress = document.getElementById('detailAddress').value;
-        formData.set('addr', `${zipcode} ${roadAddress} ${detailAddress}`);
+        formData.set('addr', `${zipcode}, ${roadAddress}, ${detailAddress}`);
 
         // 폼 유효성 검사 및 요청
         if (form.checkValidity()) {

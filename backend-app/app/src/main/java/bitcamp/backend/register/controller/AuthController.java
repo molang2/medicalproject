@@ -5,7 +5,6 @@ import java.util.Map;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,8 +16,10 @@ import bitcamp.backend.community.vo.Community;
 import bitcamp.backend.register.service.DoctorService;
 import bitcamp.backend.register.service.NaverMemberService;
 import bitcamp.backend.register.service.PatientService;
+import bitcamp.backend.register.vo.Doctor;
 import bitcamp.backend.register.vo.Member;
 import bitcamp.backend.register.vo.NaverMember;
+import bitcamp.backend.register.vo.Patient;
 import bitcamp.backend.user.service.BoardService;
 import bitcamp.backend.user.vo.Board;
 import bitcamp.util.RestResult;
@@ -49,15 +50,20 @@ public class AuthController {
 
   @PostMapping("/patientLogin")
   public Object patientLogin(String id, String password, HttpSession session) {
+    System.out.println("id : " + id + " pw : " + password);
 
     Member member = null;
     member = patientService.get(id, password);
 
     if (member != null) {
-      session.setAttribute("loginUser", member);
+      session.setAttribute("loginNo", member.getNo());
+      session.setAttribute("pUser", member);
       session.setAttribute("mycheck", false);
-
-      return new RestResult().setStatus(RestStatus.SUCCESS);
+      if (member.isAdmin()) {
+        return new RestResult().setStatus(RestStatus.SUCCESS).setData(member);
+      } else {
+        return new RestResult().setStatus(RestStatus.SUCCESS);
+      }
     } else {
       return new RestResult().setStatus(RestStatus.FAILURE);
     }
@@ -71,7 +77,8 @@ public class AuthController {
     member = doctorService.get(id, password);
 
     if (member != null) {
-      session.setAttribute("loginUser", member);
+      session.setAttribute("loginNo", member.getNo());
+      session.setAttribute("dUser", member);
       session.setAttribute("mycheck", false);
       return new RestResult().setStatus(RestStatus.SUCCESS);
     } else {
@@ -88,42 +95,64 @@ public class AuthController {
   @SuppressWarnings("unused")
   @RequestMapping("user")
   public Object user(HttpSession session) {
-    Member loginUser = (Member) session.getAttribute("loginUser");
-
-    if (loginUser != null) {
-      loginUser.setPasswordcheck((boolean) session.getAttribute("mycheck"));;
-      return new RestResult().setStatus(RestStatus.SUCCESS).setData(loginUser);
+    if (session.getAttribute("loginNo") != null) {
+      int loginNo = (int) session.getAttribute("loginNo");
+      if (patientService.getMember(loginNo).isAdmin()) {
+        Member member = patientService.getMember(loginNo);
+        member.setPasswordcheck((boolean) session.getAttribute("mycheck"));
+        return new RestResult().setStatus(RestStatus.SUCCESS).setData(member);
+      } else if (patientService.get(loginNo) != null) {
+        Patient patient = patientService.get(loginNo);
+        patient.setPasswordcheck((boolean) session.getAttribute("mycheck"));
+        return new RestResult().setStatus(RestStatus.SUCCESS).setData(patient);
+      } else {
+        Doctor doctor = doctorService.get(loginNo);
+        doctor.setPasswordcheck((boolean) session.getAttribute("mycheck"));
+        return new RestResult().setStatus(RestStatus.SUCCESS).setData(doctor);
+      }
     } else {
       return new RestResult().setStatus(RestStatus.FAILURE);
     }
   }
 
   @PostMapping("/naverLogin")
-  public ResponseEntity<?> naverLogin(@RequestBody Map<String, Object> userInfo) {
+  public Object naverLogin(@RequestBody Map<String, Object> userInfo) {
     // 클라이언트에서 전송한 회원 정보를 Map<String, String> 형태로 받아옴
-    System.out.println(userInfo);
-    String name = (String) userInfo.get("name");
-    String email = (String) userInfo.get("email");
-    String nickname = (String) userInfo.get("nickname");
-
-    NaverMember naverMember = naverMemberService.get(email);
-    if(naverMember == null) {
-      // 신규 회원 등록
-      naverMember = new NaverMember();
-      naverMember.setUsername(name);
-      naverMember.setEmail(email);
-      naverMember.setNickname(nickname);
-      naverMemberService.add(naverMember);
+    if (naverMemberService.get((String) userInfo.get("accessToken")) != null) {
+      System.out.println("기존 : " + patientService.getT((String) userInfo.get("accessToken")));
+      return new RestResult().setStatus(RestStatus.SUCCESS)
+          .setData(patientService.getT((String) userInfo.get("accessToken")))
+          .setNaverMember(naverMemberService.get((String) userInfo.get("accessToken")));
     } else {
-      // 기존 회원 정보 업데이트
-      naverMember.setUsername(name);
-      //      naverMemberService.update(naverMember);
-    }
+      NaverMember naverMember = new NaverMember();
 
-    // 회원 정보 업데이트 후 응답 메시지를 생성해서 반환
-    String message = String.format("%s 님, 환영합니다.", name);
-    return ResponseEntity.ok().body(message);
+      naverMember.setUsername((String) userInfo.get("name"));
+      naverMember.setEmail((String) userInfo.get("email"));
+      naverMember.setNickname((String) userInfo.get("nickname"));
+      naverMember.setPassword((String) userInfo.get("accessToken"));
+
+
+      naverMemberService.add(naverMember);
+      System.out.println("새로 : " + naverMember);
+      // 회원 정보 업데이트 후 응답 메시지를 생성해서 반환
+      return new RestResult().setStatus(RestStatus.SUCCESS)
+          .setData(patientService.getT((String) userInfo.get("accessToken")))
+          .setNaverMember(naverMemberService.get((String) userInfo.get("accessToken")));
+    }
   }
+  // naverMember = naverMemberService.get(email);
+  // if (naverMember == null) {
+  // // 신규 회원 등록
+  // naverMember = new NaverMember();
+  // naverMember.setUsername(name);
+  // naverMember.setEmail(email);
+  // naverMemberService.add(naverMember);
+  // } else {
+  // // 기존 회원 정보 업데이트
+  // naverMember.setUsername(name);
+  // // naverMemberService.update(naverMember);
+  // }
+  // }
 
   // @PostMapping("facebookLogin")
   // public Object facebookLogin(
@@ -186,10 +215,8 @@ public class AuthController {
   public Object patientsComm(@RequestBody HashMap<String, Object> param) {
     try {
       Community community = communityService.get((int) param.get("no"));
-      System.out.println(community);
       community.setFilter((boolean) param.get("filter"));
       communityService.update(community);
-      System.out.println(communityService.get((int) param.get("no")));
 
       return new RestResult().setStatus(RestStatus.SUCCESS);
     } catch (Exception e) {

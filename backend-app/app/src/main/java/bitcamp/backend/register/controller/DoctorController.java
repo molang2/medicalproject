@@ -153,9 +153,9 @@ public class DoctorController {
   }
 
   @PutMapping("{no}")
-  public Object update(@PathVariable int no, @RequestBody Doctor doctor) {
+  public Object update(@PathVariable int no, Doctor doctor) {
 
-    log.debug(doctor);
+    System.out.println(no+" "+doctor);
 
     // doctor.setNo(no);
     doctorService.update(doctor);
@@ -214,5 +214,17 @@ public class DoctorController {
 
 
     return new RestResult().setStatus(RestStatus.SUCCESS);
+  }
+
+  @RequestMapping("user")
+  public Object user(HttpSession session) {
+    Doctor loginUser = (Doctor) session.getAttribute("dUser");
+
+    if (loginUser != null) {
+      loginUser.setPasswordcheck((boolean) session.getAttribute("mycheck"));;
+      return new RestResult().setStatus(RestStatus.SUCCESS).setData(loginUser);
+    } else {
+      return new RestResult().setStatus(RestStatus.FAILURE);
+    }
   }
 }

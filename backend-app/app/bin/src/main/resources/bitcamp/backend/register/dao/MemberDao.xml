@@ -18,6 +18,7 @@
     <result column="m_photo" property="phoUrl"/>
     <result column="pho_filename" property="phoName"/>
     <result column="pho_type" property="phoType"/>
+    <result column="admin" property="admin"/>
   </resultMap>
 
   <insert id="insert" parameterType="member" 
@@ -65,11 +66,21 @@
       m_pw, 
       m_name, 
       m_email, 
-      m_tel 
+      m_tel,
+      admin
     from 
       app_member 
     where 
       m_no=#{no}
+  </select>
+  
+  <select id="findByToken" parameterType="String" resultMap="memberMap">
+    select 
+      *
+    from 
+      app_member 
+    where 
+      m_pw=sha2(#{token},256)
   </select>
   
   <select id="findByTel" parameterType="String" resultMap="memberMap">
