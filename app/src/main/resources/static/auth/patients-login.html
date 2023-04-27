@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>환자 - 로그인</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="../assets/img/newlogo.png" rel="icon">
+  <link href="../assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.gstatic.com" rel="preconnect">
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+    rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="../assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="../assets/vendor/quill/quill.snow.css" rel="stylesheet">
+  <link href="../assets/vendor/quill/quill.bubble.css" rel="stylesheet">
+  <link href="../assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+  <link href="../assets/vendor/simple-datatables/style.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="../assets/css/style.css" rel="stylesheet">
+</head>
+<body>
+  <main>
+    <div class="container">
+
+      <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
+
+              <div class="card mb-3">
+                <div class="card-body">
+
+                  <div class="pt-4 pb-2">
+                   <img src ="../register/assets/img/mainlogo-tr.png" style="height:200px; margin-left:80px ">
+                    <h5 class="card-title text-center pb-0 fs-4"><strong>Login to Your Account</strong></h5>
+                    <p class="text-center small"><strong>로그인 후 다양한 진료 서비스를 받아보세요!</strong></p>
+                  </div>
+
+                  <form id="login-form" action="patientLogin" mehtod="post" class="row g-3 needs-validation" novalidate>
+
+                    <div class="col-12">
+                      <label for="yourUsername" class="form-label"><strong>회원 ID</strong></label>
+                      <div class="input-group has-validation">
+                        <input type="text" name="id" class="form-control" id="ID" required>
+                        <div class="invalid-feedback">아이디를 입력하세요!</div>
+                      </div>
+                    </div>
+
+                    <div class="col-12">
+                      <label for="yourPassword" class="form-label"><strong>비밀번호</strong></label>
+                      <input type="password" name="password" class="form-control" id="yourPassword" required>
+                      <div class="invalid-feedback">비밀번호를 입력하세요</div>
+                    </div>
+
+                    <div class="col-12">
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="remember" value="true" id="rememberMe">
+                        <label class="form-check-label" for="rememberMe">아이디 저장하기</label>
+                      </div>
+                    </div>
+                    <div class="col-12" style="text-align:center;">
+                      <button id="btn-login" class="btn btn-primary" type="button">로그인</button>
+                      <button class="btn btn-primary" type="button">비회원</button>
+                    </div>
+                    <div id="naver_id_login">
+
+                    </div>
+                    <div class="col-12" style="text-align:center;">
+                      <p class="small mb-0">계정이 없으시다구요?<a href="../register/patients-signup.html"><strong>지금 계정 만들기</strong></a></p>
+                    </div>
+                  </form>
+
+                </div>
+              </div>
+
+              <div class="credits">
+
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+    </div>
+  </main><!-- End #main -->
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+      class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="../assets/vendor/apexcharts/apexcharts.min.js"></script>
+  <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="../assets/vendor/chart.js/chart.umd.js"></script>
+  <script src="../assets/vendor/echarts/echarts.min.js"></script>
+  <script src="../assets/vendor/quill/quill.min.js"></script>
+  <script src="../assets/vendor/simple-datatables/simple-datatables.js"></script>
+  <script src="../assets/vendor/tinymce/tinymce.min.js"></script>
+  <script src="../assets/vendor/php-email-form/validate.js"></script>
+
+  <!-- Naver Login -->
+  <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js"
+    charset="utf-8"></script>
+  <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="../assets/js/main.js"></script>
+
+  <script>
+
+    fetch(`http://175.106.99.31/auth/user`, {
+      method: 'GET'
+    })
+      .then(response => response.json())
+      .then(data => {
+        if (data.status == "success") {
+          return data.data;
+        } else {
+
+        }
+      })
+      .then((user) => {
+        if (user.phy !== undefined) {
+          location.href = '../register/index.html';
+        } else if (user.admin) {
+          location.href = '../register/memberEditor.html';
+        }
+      })
+
+
+    // 쿠키정보 id 받아오기
+    document.querySelector('input[name="id"]').value = getCookie('id');
+
+    const loginForm = document.querySelector('#login-form');
+
+    // 로그인 버튼 - click event 
+    document.querySelector('#btn-login').addEventListener('click', () => {
+      login();
+    });
+
+    // 로그인 버튼 - enter key event
+    loginForm.addEventListener("keydown", (event) => {
+      if (event.key === "Enter") {
+        event.preventDefault(); // 기본 동작 취소
+        login();
+      }
+    });
+
+    function login() {
+
+      // 회원 ID를 쿠키에 보관
+      if (document.querySelector('input[type="checkbox"]:checked') != null) {
+        setCookie('id', document.querySelector('input[name="id"]').value, 60 * 60 * 24 * 7);
+      } else {
+        setCookie('id', '', 0);
+      }
+
+      const form = document.querySelector('#login-form');
+      const formData = new FormData(form);
+
+      fetch("http://175.106.99.31/auth/patientLogin", {
+        method: "POST",
+        body: formData
+      })
+        .then(response => {
+          return response.json();
+        })
+        .then(result => {
+          if (result.status == 'success') {
+            if (result.data != null) {
+              location.href = '../register/memberEditor.html';
+            } else {
+              location.href = '../register/index.html';
+            }
+          } else {
+            alert('로그인 실패!');
+            document.querySelector('input[name="id"]').value = "";
+            document.querySelector('input[name="password"]').value = "";
+          }
+        })
+        .catch(exception => {
+          alert("로그인 오류!");
+          console.log(exception);
+        });
+    }
+
+    function getCookie(cookieName) {
+      var cookieValue = null;
+      if (document.cookie) {
+        var array = document.cookie.split((escape(cookieName) + '='));
+        if (array.length >= 2) {
+          var arraySub = array[1].split(';');
+          cookieValue = unescape(arraySub[0]);
+        }
+      }
+      return cookieValue;
+    }
+
+    function setCookie(cookieName, cookieValue, cookieMaxAge, cookiePath, cookieDomain, cookieSecure) {
+      var cookieText = encodeURIComponent(cookieName) + '=' + encodeURIComponent(cookieValue);
+      cookieText += (cookieMaxAge ? '; max-age=' + cookieMaxAge : '');
+      cookieText += (cookiePath ? '; path=' + cookiePath : '');
+      cookieText += (cookieDomain ? '; domain=' + cookieDomain : '');
+      cookieText += (cookieSecure ? '; secure' : '');
+      document.cookie = cookieText;
+    }
+
+
+  </script>
+
+
+  <!-- 네이버 아이디 로그인 초기화 Script-->
+  <script type="text/javascript">
+    var naver_id_login = new naver_id_login("x9QsZfbe1nRbY_xq0a2s", "http://175.106.99.31/auth/callback.html");
+    var state = naver_id_login.getUniqState();
+    naver_id_login.setButton("green", 3, 75);
+    naver_id_login.setDomain("http://175.106.99.31/auth/patients-login.html");
+    naver_id_login.setState(state);
+    // naver_id_login.setPopup();
+    naver_id_login.init_naver_id_login();
+    naver_id_login.get_naver_userprofile("naverSignInCallback");
+  </script>
+
+  <!-- <script type="text/javascript">
+    var naver_id_login = new naver_id_login("x9QsZfbe1nRbY_xq0a2s", "http://175.106.99.31/register/index.html");
+    // 접근 토큰 값 출력
+    alert(naver_id_login.oauthParams.access_token + "접근 토큰");
+
+    // 네이버 사용자 프로필 조회
+    function naverSignInCallback() {
+      alert(naver_id_login.getProfileData('name'));
+      alert(naver_id_login.getProfileData('email'));
+      alert(naver_id_login.getProfileData('mobile'));
+    } 
+  </script> -->
+
+  <!-- 네이버 아이디 로그인 초기화 Script
+  <script type="text/javascript">
+    var naver_id_login = new naver_id_login("xrpuojJYw18imfX2Z6DQ", "http://175.106.99.31/auth/callback.html");
+    var state = naver_id_login.getUniqState();
+    naver_id_login.setButton("green", 3, 75);
+    naver_id_login.setDomain("http://175.106.99.31/auth/patients-login.html");
+    naver_id_login.setState(state);
+    // naver_id_login.setPopup();
+    naver_id_login.init_naver_id_login();
+    naver_id_login.get_naver_userprofile("naverSignInCallback()");
+  </script>
+
+  <script type="text/javascript">
+    var naver_id_login = new naver_id_login("xrpuojJYw18imfX2Z6DQ", "http://175.106.99.31/register/index.html");
+    // 접근 토큰 값 출력
+    alert(naver_id_login.oauthParams.access_token + "접근 토큰");
+
+    // 네이버 사용자 프로필 조회
+    function naverSignInCallback() {
+      alert(naver_id_login.getProfileData('name'));
+      alert(naver_id_login.getProfileData('email'));
+      alert(naver_id_login.getProfileData('nickname'));
+    } 
+  </script> -->
+
+
+
+
+
+
+
+  <!-- //네이버 아아디 로그인 초기화 Script
+
+ // 네이버 아이디 로그인 CallBack 페이지 처리 Script : 환자페이지 로그인 성공시 index.html로 Callback
+
+  // 네이버 사용자 프로필 조회 이후 프로필 정보를 처리할 callback function
+  // function naverSignInCallback() {
+  //   // naver_id_login.getProfileData('프로필항목명');
+  //  // 프로필 항목은 개발가이드를 참고하시기 바랍니다.
+  //   // 네이버 사용자 프로필 정보 가져오기
+  //   var name = naver_id_login.getProfileData('name');
+  //   var email = naver_id_login.getProfileData('email');
+  //   var mobile = naver_id_login.getProfileData('mobile');
+
+  //   // 회원 정보를 JSON 형식으로 만들기 
+  //   var data = {
+  //     name: name,
+  //     email: email,
+  //     mobile: mobile
+  //   };
+
+  //   console.log(data);
+
+  //   // fetch() 함수를 사용하여 회원 정보를 서버로 전송
+  //   fetch("http://175.106.99.31/auth/naverLogin", {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json'
+  //     },
+  //     body: JSON.stringify(data)
+  //   }).then(function(response) {
+  //     // 서버로부터 응답을 받았을 때 처리할 코드
+  //   }).catch(function(error) {
+  //     // 오류 처리 코드
+  //   });
+  // }
+
+  // 네이버 사용자 프로필 조회
+  // naver_id_login.get_naver_userprofile(naverSignInCallback()); -->
+
+</body>
+
+</html>

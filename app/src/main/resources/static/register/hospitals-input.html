@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>전화 번호 인증</title>
+    <!-- CSS only -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
+      crossorigin="anonymous"
+    />
+
+    <style>
+      .input-background {
+        width: 100%;
+        height: 50px;
+        background-color: rgb(245, 245, 245);
+        border: 1px solid rgb(245, 245, 245);
+        padding: 10px;
+        box-sizing: border-box;
+        margin-bottom: 10px;
+      }
+
+      input {
+        border: 0px;
+        background-color: unset;
+        border-bottom: 2px solid rgb(216, 216, 216);
+        width: 100%;
+        height: 100%;
+        color: transparent;
+        text-shadow: 0 0 0 black;
+      }
+
+      input:focus {
+        outline: none;
+        border-bottom: 2px solid rgb(75, 75, 75);
+      }
+
+      .search-input {
+        width: 92%;
+        height: 50px;
+        box-sizing: border-box;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 20px;
+        margin-bottom: 100px;
+      }
+
+      button {
+        width: 100%;
+      }
+
+      h3 {
+        width: 92%;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      body {
+        padding-top: 20px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h3 class="text-center">내 병원 등록</h3>
+    <span >
+    <button type="button" id="0, " class="btn btn-secondary col-sm-2" onclick="setParentText(event)">등록 취소</button>
+  </span>
+    <div style="float: right">
+      <input
+        type="text"
+        id="search-input"
+        placeholder="병원명,주소,진료과목🔍"
+      />
+    </div>
+    <table id="foo-table" class="table table-hover">
+      <thead>
+        <tr>
+          <!-- table 작업시에 <th><td> 갯수가 서로 일치하지 않으면 정렬 버튼 사라집니다 -->
+          <th scope="col">번호</th>
+          <th scope="col">병원명</th>
+          <th scope="col">주소</th>
+          <th scope="col">전화</th>
+          <!-- <th scope="col">진료시간</th> 굳이시간 받을필요 없음 -->
+          <th scope="col">진료과목</th>
+        </tr>
+      </thead>
+      <tbody id="hospital-list" class="table-group-divider">
+        <tr id="hospital-list-detail">
+          <td id="hospitalNo"></td>
+          <td id="hospitalName"></td>
+          <td id="hospitalAddr"></td>
+          <td id="hospitalTel"></td>
+          <!-- <td id="hospitalTime"></td> 굳이시간 받을필요 없음 -->
+          <td id="hospitalSub"></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- JavaScript Bundle with Popper -->
+    <!-- 사용자가 추가한 스크립트 -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      crossorigin
+      src="https://unpkg.com/react@18/umd/react.production.min.js"
+    ></script>
+    <script
+      crossorigin
+      src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"
+    ></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      //검색기능
+      const tbody = document.querySelector('tbody');
+      const searchInput = document.querySelector('#search-input');
+
+      let dataList = [];
+
+      searchInput.addEventListener('input', function () {
+        const searchValue = searchInput.value.trim();
+        if (searchValue === '') {
+          renderDataList(dataList);
+        } else {
+          const filteredDataList = dataList.filter(function (data) {
+            return (
+              data.hosName.includes(searchValue) ||
+              data.hosAddr.includes(searchValue) ||
+              data.hosSub.includes(searchValue)
+            );
+          });
+          renderDataList(filteredDataList);
+        }
+      });
+
+      function renderDataList(dataList) {
+        let html = '';
+        for (var row of dataList) {
+          html += `<tr>
+        <td>${row.hospitalNo}</td>
+        <td><a href="" id=${row.hospitalNo},${row.hosName}  onclick="setParentText(event)">${row.hosName}</a></td>
+        <td>${row.hosAddr}</td>
+        <td>${row.hosTel}</td>        
+        <td>${row.hosSub}</td>
+        </tr>\n`;
+        }
+        tbody.innerHTML = html;
+      }
+
+      fetch('http://175.106.99.31/hospital/list')
+        .then((response) => {
+          return response.json();
+        })
+        .then((data) => {
+          dataList = data.data;
+          renderDataList(dataList);
+        })
+        .catch((err) => {
+          alert('서버 요청 오류!');
+          console.log(err);
+        });
+
+      function setParentText(e) {
+        let str = e.target.id;
+        let hosNo = str.split(',')[0];
+        let hosName = str.split(',')[1];
+        opener.document.querySelector('.change-hospital').value = hosName;
+        opener.document.querySelector('.change-hospitalNo').value = hosNo;
+        window.close();
+      }
+    </script>
+  </body>
+</html>
