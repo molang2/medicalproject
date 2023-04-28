@@ -151,28 +151,28 @@
          
         }
 
-          .chats {
+        .chats {
             width: 100%;
             height: 85%;
             box-sizing: border-box;
             margin-bottom: 2%;
             overflow: auto;
             border-radius: 10px;
-            background-color: white;
+            background-color:rgb(211, 235, 244);
           }
 
           .chat-list {
             width: 100%;
             padding: 0;
             margin: 0;
-            border: 10px solid white;
+            border: 10px solid rgb(211, 235, 244);
             box-sizing: border-box;
           }
 
           .chat-list li {
             list-style: none;
             width: 100%;
-            min-height: 120px;
+            min-height: 140px;
             margin-bottom: 2%;
           }
 
@@ -182,15 +182,15 @@
             width: 300px;
             float: left;
             background-color: white;
-            border: 3px solid rgb(134, 177, 243);
+            border: 3px solid rgb(211, 235, 244);
           }
           .chat-right {}
 
           .chat-right div {
            width: 300px;
 		        float: right;
-		        background-color: white;
-		        border: 3px solid rgb(4, 50, 120);
+		        background-color: rgb(255, 229, 135);
+		        border: 3px solid  rgb(255, 229, 135);
 		      }
 		      #q-content{
 		        font-weight: bolder;
@@ -219,6 +219,9 @@
           .chats li div span {
             display: inline-block;
             box-sizing: border-box;
+            white-space: normal;
+            word-wrap:break-word;
+            word-break:break-all;
           }
 
           .chat-send-cover {
@@ -236,7 +239,7 @@
           </div>
           <div class="chat-send-cover">
             <div class="input-group mb-3">
-              <input type="text" class="form-control chat-text" placeholder="문의 사항을 입력해주세요" aria-label="Recipient's username" aria-describedby="button-addon2">
+              <input type="text" class="form-control chat-text" placeholder="문의 사항을 입력해주세요" maxlength="32" aria-label="Recipient's username" aria-describedby="button-addon2">
               <button class="btn btn-outline-secondary chat-btn" type="button" id="button-addon2" style="z-index:0 !important">입력</button>
             </div>
           </div>

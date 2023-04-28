@@ -8,7 +8,7 @@
   <title>의사 - Main</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
-
+ 
   <!--구글폰트-->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -65,6 +65,9 @@
       background-color: transparent;
       border: none;
     }
+    .hos-tr{
+      cursor: pointer;
+    }
   </style>
 </head>
 
@@ -82,7 +85,7 @@
     </div>
     <!-- End Logo -->
     <div class="top-menu">
-      <a href="hospitals-list.html" class="nav-link collapsed"><span>병원</span></a>
+      <a href="hospitals-list.html" class="nav-link"><span>병원</span></a>
   
       <a href="doctors-community-main.html" class="nav-link collapsed"
         ><span>커뮤니티</span></a
@@ -108,7 +111,7 @@
       <li class="nav-heading">의사 전용 페이지</li>
 
       <li class="nav-item">
-        <a class="nav-link" href="doctors-profile.html">
+        <a class="nav-link collapsed" href="doctors-profile.html">
           <i class="bi bi-person"></i>
           <span>내 정보</span>
         </a>
@@ -164,7 +167,10 @@
         });
       </script>
     </ul>
-
+    <img
+    src="../register/assets/img/mainlogo.png"
+    style="height: 150px; margin-top: 400px; margin-left: 40px"
+  />
   </aside><!-- End Sidebar-->
 
   <main id="main" class="main">
@@ -186,7 +192,7 @@
                     병원추가
                   </button>
                   <strong style="margin-left: 710px;">병원정보검색</strong>
-                  <input type="text" id="search-input" placeholder="병원명,주소,진료과목🔍">
+                  <input type="text" id="search-input" placeholder="병원명,주소,진료과목         🔍">
                 </h4>
                 <!-- <p>Add lightweight datatables to your project with using the <a href="https://github.com/fiduswriter/Simple-DataTables" target="_blank">Simple DataTables</a> library. Just add <code>.datatable</code> class name to any table you wish to conver to a datatable</p> -->
 
@@ -241,30 +247,30 @@
                                 margin: 0;
                             }
                           </style>
-                          <form id="hospital-list">
-                            <tbody class="table-group-divider">
-                              <div class="hospital-list-css">
-                                <tr>
-                                  <td><input id="hosName" class="hos-name" type="text" /></td>
-                                  <td><input id="hosAddr" class="hos-addr" type="text" /></td>
-                                  <td><input id="hosTel" class="hos-tel" type="number" placeholder="'-' 없이 입력"
-                                     maxlength="11"
-                                      oninput="changeNo()" required /></td>
-                                    <script>
-                                      function changeNo(){
-                                        if( document.querySelector(".hos-tel").value.length > document.querySelector(".hos-tel").maxLength) {
-                                          document.querySelector(".hos-tel").value = document.querySelector(".hos-tel").value.substring(0,11);
-                                        }
+                        <form id="hospital-list">
+                          <tbody class="table-group-divider">
+                            <div class="hospital-list-css">
+                              <tr>
+                                <td><input id="hosName" class="hos-name" type="text" placeholder='병원이름' /></td>
+                                <td><input id="hosAddr" class="hos-addr" type="text" placeholder='주소'/></td>
+                                <td><input id="hosTel" class="hos-tel" type="number" placeholder="'-' 없이 입력"
+                                   maxlength="11"
+                                    oninput="changeNo()" required /></td>
+                                  <script>
+                                    function changeNo(){
+                                      if( document.querySelector(".hos-tel").value.length > document.querySelector(".hos-tel").maxLength) {
+                                        document.querySelector(".hos-tel").value = document.querySelector(".hos-tel").value.substring(0,11);
                                       }
-                                    </script>
-                                  <td><input id="hosTime" class="hos-time" type="text"
-                                      placeholder="예:월~금 08시~18시30분,토 휴진" /></td>
-                                  <td><input id="hosSub" class="hos-sub" type="text" placeholder="예: 가정의학과,소아과" /></td>
-                                  <td><input id="hosPwd" class="hos-pwd" type="password"/></td>
-                                  <form>
-                                    <td><input type="file" id="hosPhoto" class="hos-photo hospital-files"
-                                        style="width: 220px;" accept="image/*" multiple required></td>
-                                  </form>
+                                    }
+                                  </script>
+                                <td><input id="hosTime" class="hos-time" type="text"
+                                    placeholder="예:월~금 08시~18시30분,토 휴진" /></td>
+                                <td><input id="hosSub" class="hos-sub" type="text" placeholder="예: 가정의학과,소아과" /></td>
+                                <td><input id="hosPwd" class="hos-pwd" type="password" placeholder="비밀번호를 4자이상 입력"/></td>                      
+                                <form>
+                                  <td><input type="file" id="hosPhoto" class="hos-photo hospital-files"
+                                      style="width: 220px;" accept="image/*" multiple></td>
+                                </form>
                                 </tr>
                               </div>
                             </tbody>
@@ -419,7 +425,7 @@
     function renderDataList(dataList) {
       let html = '';
       for (var row of dataList) {   
-        html += `<tr onclick="window.location.href='hospitals-view.html?no=${row.hospitalNo}'">
+        html += `<tr style="cursor:pointer;" onclick="window.location.href='hospitals-view.html?no=${row.hospitalNo}'">
         <td>${row.hospitalNo}</td>
         <td>${row.hosName}</td>
         <td>${row.hosAddr}</td>
@@ -500,6 +506,18 @@
 
 
     document.querySelector('#btn-submit').onclick = (e) => {
+      const hosNameInput = document.querySelector('#hosName');
+      const pwdInput = document.querySelector('#hosPwd');
+
+       if(hosNameInput.value == ""){
+        alert('병원명을 입력해주세요.');
+        return false;
+      }
+
+      if(pwdInput.value == "" || pwdInput.value.length < 4){
+        alert('비밀번호를 4자 이상 입력해주세요.');
+        return false;
+      }
       if (hosTel.value === '' || hosTel.value.length < 7) {
         return false;
       }

@@ -76,7 +76,7 @@
       <li class="nav-heading">의사 전용 페이지</li>
 
       <li class="nav-item">
-        <a class="nav-link" href="doctors-profile.html">
+        <a class="nav-link collapsed" href="doctors-profile.html">
           <i class="bi bi-person"></i>
           <span>내 정보</span>
         </a>
@@ -91,7 +91,7 @@
       </li>
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="QnQ-doc.html">
+        <a class="nav-link" href="QnQ-doc.html">
           <i class="bi bi-question-circle"></i>
           <span>문의하기</span>
         </a>
@@ -163,46 +163,58 @@
         }
 
         .chats {
-          width: 100%;
-          height: 85%;
-          box-sizing: border-box;
-          margin-bottom: 2%;
-          overflow: auto;
-          border-radius: 10px;
-          background-color: white;
-        }
+            width: 100%;
+            height: 85%;
+            box-sizing: border-box;
+            margin-bottom: 2%;
+            overflow: auto;
+            border-radius: 10px;
+            background-color:rgb(211, 235, 244);
+          }
 
-        .chat-list {
-          width: 100%;
-          padding: 0;
-          margin: 0;
-          border: 10px solid white;
-          box-sizing: border-box;
-        }
+          .chat-list {
+            width: 100%;
+            padding: 0;
+            margin: 0;
+            border: 10px solid rgb(211, 235, 244);
+            box-sizing: border-box;
+          }
 
-        .chat-list li {
-          list-style: none;
-          width: 100%;
-          min-height: 120px;
-          margin-bottom: 2%;
-        }
+          .chat-list li {
+            list-style: none;
+            width: 100%;
+            min-height: 140px;
+            margin-bottom: 2%;
+          }
 
-        .chat-left {}
+          .chat-left {}
 
-         .chat-left div {
-          width: 300px;
-          float: left;
-          background-color: white;
-          border: 3px solid rgb(134, 177, 243);
-        }
-        .chat-right {}
+           .chat-left div {
+            width: 300px;
+            float: left;
+            background-color: white;
+            border: 3px solid rgb(211, 235, 244);
+          }
+          
+          .chat-right {}
 
-        .chat-right div {
-         width: 300px;
-          float: right;
-          background-color: white;
-          border: 3px solid rgb(4, 50, 120);
-        }
+          .chat-right div {
+           width: 300px;
+		        float: right;
+		        background-color: white;
+		        border: 3px solid rgb(211, 235, 244);
+		      }
+          
+          .chat-right div:before {
+            content: '';
+            position: absolute;
+            right: -15px;
+            top: 10px;
+            border-width: 15px 15px 0 0;
+            border-style: solid;
+            border-color: rgb(211, 235, 244) transparent transparent transparent;
+          }
+
         #q-content{
           font-weight: bolder;
         }
@@ -230,6 +242,9 @@
         .chats li div span {
           display: inline-block;
           box-sizing: border-box;
+          white-space: normal;
+          word-wrap:break-word;
+          word-break:break-all;
         }
 
         .chat-send-cover {
@@ -248,7 +263,7 @@
         </div>
         <div class="chat-send-cover">
           <div class="input-group mb-3">
-            <input type="text" class="form-control chat-text" placeholder="문의 사항을 입력해주세요"
+            <input type="text" class="form-control chat-text" maxlength="32" placeholder="문의 사항을 입력해주세요"
               aria-label="Recipient's username" aria-describedby="button-addon2">
             <button class="btn btn-outline-secondary chat-btn" type="button" id="button-addon2" style="z-index:0 !important">입력</button>
           </div>

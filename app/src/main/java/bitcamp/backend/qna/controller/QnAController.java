@@ -28,12 +28,20 @@ public class QnAController {
 
   @PostMapping
   public Object qnaInsert(@RequestBody HashMap<String, Object> param) {
-    System.out.println(param);
     try {
       if (qnAService.getM((int) param.get("mno")) != null) {
         QnA a = qnAService.getM((int) param.get("mno"));
         a.setContent(a.getContent() + "," + param.get("content") + ":질문자:"
             + new SimpleDateFormat("MM월dd일 HH시mm분").format(new Date()));
+        while(a.getContent().length() >= 250) {
+          String str = a.getContent();
+          System.out.println("콘테츠 길이 초과" + a.getContent().length());
+          String tmp = "";
+          for(int i = 2; i < str.split(",").length; i++) {
+            tmp += str.split(",")[i] + ",";
+          }
+          a.setContent(tmp);
+        }
         qnAService.updateM(a);
       } else {
         QnA qnA = new QnA();
@@ -51,12 +59,20 @@ public class QnAController {
 
   @PostMapping("admin")
   public Object qnaAdminInsert(@RequestBody HashMap<String, Object> param) {
-    System.out.println(param);
     try {
       if (qnAService.get((int) param.get("mno")) != null) {
         QnA a = qnAService.get((int) param.get("mno"));
         a.setContent(a.getContent() + "," + param.get("content") + ":관리자:"
             + new SimpleDateFormat("MM월dd일 HH시mm분").format(new Date()));
+        while(a.getContent().length() >= 250) {
+          String str = a.getContent();
+          System.out.println("콘테츠 길이 초과" + a.getContent().length());
+          String tmp = "";
+          for(int i = 2; i < str.split(",").length; i++) {
+            tmp += str.split(",")[i] + ",";
+          }
+          a.setContent(tmp);
+        }
         qnAService.updateM(a);
       } else {
         QnA qnA = new QnA();
