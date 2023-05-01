@@ -43,8 +43,7 @@
 
   <div class="d-flex align-items-center justify-content-between">
     <a class="logo d-flex align-items-center">
-     <!--  <img src="assets/img/newlogo.png" alt=""> -->
-      <span class="d-none d-lg-block">P DC</span>
+      <img src="../register/assets/img/headerlogo-d.png">
     </a>
     <i class="bi bi-list toggle-sidebar-btn"></i>
   </div>
@@ -150,6 +149,7 @@
               <div class="card">
                 <div class="card-body">
                   <h5 class="card-title"><strong>실시간 인기 게시글</strong></h5>
+                
                   <ul>
                     <li><p id="hot-posting1" style="cursor:pointer;"></p></li>
                     <li><p id="hot-posting2" style="cursor:pointer;"></p></li>
@@ -162,15 +162,42 @@
               <div class="card">
                 <div class="card-body" >
                   <h5 class="card-title" id="naver-logo-title" ><img src="../assets/img/naverlogo.png" style="width:180px;"></h5>
-                   <div class="input-group mb-3">
+                  
+                  <div class="searching">
+                    <input type="text" class="naver-search" name="query" placeholder="">
+                    <button class="button naver-btn" type="button" id="naver-search">검색</button>
+                  </div>
+
+                  <!-- <div class="input-group mb-3">
                     <button class="naver-btn btn btn-outline-secondary" type="button" id="naver-search button-addon1">Search</button>
                     <input type="text" class="form-control naver-search" placeholder="">
-                  </div>
+                  </div> -->
                  </div>
               </div>
             </div> 
             
-        </div>
+            <style>
+              .searching{ 
+                height: 40px; 
+                border:2px solid rgb(25,206,96);  
+                position:relative;
+                margin-left:20px;
+                margin-right:20px;
+              }
+              .button{
+                width: 50px; height: 38px; background: rgb(25,206,90);
+                position: absolute; right: 0; top: 0; border: none; 
+                font-size: 15px; font-weight: bold; color: white;}
+              
+              input[name="query"]{
+                height: 35px;
+                top: 5px; left: 10px; border: none; }
+              input[name="query"]:focus{outline: none;} /*최신버전*/
+          
+              
+          
+            </style>
+
         
         <div class="col-lg-12" style="display: none;" id="when-searched">     
            <div class="card">
@@ -285,9 +312,9 @@
       </div>
           
   </section>
-              <section class="section">
+              <section class="section" style="margin-bottom: 40px;">
                 <div class="row">
-                  <div class="col-lg-12">
+                  <div class="col-lg-12" >
                     <div class="card">
                       <div class="card-body">
                         <h5 class="card-title"><strong>커뮤니티 게시글 목록</strong></h5>
@@ -295,7 +322,7 @@
                           <thead>
                             <tr>
                               <!-- table 작업시에 <th><td> 갯수가 서로 일치하지 않으면 정렬 버튼 사라집니다 -->
-                              <th scope="col">번호</th>
+                             <!-- <th scope="col">번호</th>-->
                               <th scope="col" style="width:500px">제목</th>
                               <th scope="col">작성자</th>
                               <th scope="col">카테고리</th>
@@ -306,7 +333,7 @@
           
                           <tbody class="table-group-divider" id="community-list">
                             <tr>
-                              <td></td>
+                             <!-- <td></td>-->
                               <td><a href="community-view.html?no={no}"></a></td>
                               <td></td>
                               <td></td>
@@ -317,27 +344,7 @@
                         </table>
                        
                         <div style="margin-top: 20px;">
-                          <button type="button" id="btn-write" class="btn btn-primary">글쓰기</button>
-                        
-                        <!-- <nav aria-label="Page navigation example">
-												  <ul class="pagination">
-												    <li class="page-item">
-												      <a class="page-link" href="#" aria-label="Previous">
-												        <span aria-hidden="true">&laquo;</span>
-												      </a>
-												    </li>
-												    <li class="page-item"><a class="page-link" href="#">1</a></li>
-												    <li class="page-item"><a class="page-link" href="#">2</a></li>
-												    <li class="page-item"><a class="page-link" href="#">3</a></li>
-												    <li class="page-item">
-												      <a class="page-link" href="#" aria-label="Next">
-												        <span aria-hidden="true">&raquo;</span>
-												      </a>
-												    </li>
-												  </ul>
-												</nav>
-                        -->
-                       
+                          <button type="button" id="btn-write" class="btn btn-outline-secondary">글쓰기</button>
                         </div>
                         
                       </div>

@@ -99,6 +99,7 @@
       class="bi bi-arrow-up-short"></i></a>
 
   <!-- Vendor JS Files -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="../assets/vendor/apexcharts/apexcharts.min.js"></script>
   <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="../assets/vendor/chart.js/chart.umd.js"></script>
@@ -154,10 +155,11 @@
     function login() {
       // 회원 ID를 쿠키에 보관
       if (document.querySelector('input[type="checkbox"]:checked') != null) {
+        // 쿠키의 유효기간 1주일로 지정(초,분,시,일)
         setCookie('id', document.querySelector('input[name="id"]').value, 60 * 60 * 24 * 7);
       } else {
         setCookie('id', '', 0);
-      }
+      } 
 
 
       const form = document.querySelector('#login-form');
@@ -171,21 +173,36 @@
           return response.json();
         })
         .then(result => {
+          console.log(result)
           if (result.status == 'success') {
             location.href = '../register/doctors-advices.html';
           } else {
-            
-            if(result.data != null) {
-              alert('자격증 인증 안됨');
+            if(result.data == "licenseNONE") {
+              Swal.fire({
+                title: '자격증 인증 안됨',
+                width: 320,
+                height: 200
+              });
             }else {
-              alert('로그인 실패!');
+              Swal.fire({
+                icon: 'error',
+                title: '존재하지 않는 계정',
+                width: 400,
+                height: 320,
+                showConfirmButton: false,
+                timer: 750
+              });
             }
             document.querySelector('input[name="id"]').value = "";
             document.querySelector('input[name="password"]').value = "";
           }
         })
         .catch(exception => {
-          alert("로그인 오류!");
+          Swal.fire({
+                title: '로그인 오류',
+                width: 320,
+                height: 200
+              });
           console.log(exception);
         });
     }

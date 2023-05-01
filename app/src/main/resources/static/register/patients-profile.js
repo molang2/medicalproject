@@ -2,6 +2,8 @@ let patientNo = 0;
 let samePw = false;
 patientNo = 0;
 
+let gen = false;
+
 fetch(`http://175.106.99.31/auth/user`, {
   method: "GET",
 })
@@ -52,7 +54,7 @@ fetch(`http://175.106.99.31/auth/user`, {
         .then((data) => {
           if (data.status == "success") {
             data = data.data;
-
+            gen = data.gender;
             let imgUrl = "";
 
             if (data.phoUrl != "undefined") {
@@ -91,7 +93,7 @@ fetch(`http://175.106.99.31/auth/user`, {
             document.querySelector(".patients-email").innerText = data.email;
             document.querySelector(".change-email").value = data.email;
 
-            document.querySelector(".patients-drug").innerText = data.drug;
+            document.querySelector(".patients-drug").innerText = data.drug+", "+data.phy;
             document.querySelector(".change-drug").value = data.drug;
             document.querySelector(".change-phy").value = data.phy;
 
@@ -132,7 +134,7 @@ $(".change-btn").click(() => {
   formData.append("birth", document.querySelector(".change-birth").value);
   formData.append("tel", document.querySelector(".change-tel").value);
   formData.append("addr", document.querySelector(".change-addr").value);
-  // formData.append("gender", '1');
+  formData.append("gender", gen);
   formData.append("email", document.querySelector(".change-email").value);
   formData.append("drug", document.querySelector(".change-drug").value);
   formData.append("phy", document.querySelector(".change-phy").value);
@@ -181,16 +183,41 @@ $(".change-pw-btn").click(() => {
       .then((response) => response.json())
       .then((data) => {
         if (data.status == "success") {
-          alert("비밀번호 정상적으로 변경됨");
-          window.location = "";
+          Swal.fire({
+            icon: 'success',
+            title: '비밀번호 정상적으로 변경됨',
+            width: 400,
+            height: 320,
+            showConfirmButton: false,
+            timer: 750
+          });
+          setTimeout(() => {
+            window.location = "";
+          }, 800);
         } else {
-          alert("기존 비밀번호와 다름");
+          Swal.fire({
+            icon: 'error',
+            title: '기존 비밀번호와 다름',
+            width: 400,
+            height: 320,
+            showConfirmButton: false,
+            timer: 750
+          });
         }
       });
   } else {
-    alert("비밀번호 확인 과 입력 비밀번호가 다르거나 기존 비밀번호와 동일");
+    Swal.fire({
+      icon: 'error',
+      title: '기존 비밀번호와 동일',
+      width: 400,
+      height: 320,
+      showConfirmButton: false,
+      timer: 750
+    });
   }
 });
+
+
 
 // {
 //   "messages":{

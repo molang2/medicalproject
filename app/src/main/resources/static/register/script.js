@@ -258,24 +258,6 @@ $(".btn-1").click(() => {
                   aria-label="Checkbox for following text input"
                 />
               </div>
-              <div className="input-group-text">
-                <span className="font13" style={{ marginRight: 2 }}>증상1</span>
-                <input
-                  className="form-check-input mt-0"
-                  type="checkbox"
-                  defaultValue="증상1"
-                  aria-label="Checkbox for following text input"
-                />
-              </div>
-              <div className="input-group-text">
-                <span className="font13" style={{ marginRight: 2 }}>증상2</span>
-                <input
-                  className="form-check-input mt-0"
-                  type="checkbox"
-                  defaultValue="증상2"
-                  aria-label="Checkbox for following text input"
-                />
-              </div>
             </div>
             
             <h3>추가 입력항목</h3>
@@ -314,7 +296,7 @@ $(".btn-1").click(() => {
                       title: $(".insert-title").val(),
                       pain: pa,
                       name: mydata.name,
-                      age: mydata.birth.split("-")[0] - new Date().getYear() + 1900,
+                      age: new Date().getYear() + 1900-mydata.birth.split("-")[0],
                       tel: mydata.tel,
                       addr1: mydata.addr,
                       addr2: "",
@@ -336,7 +318,14 @@ $(".btn-1").click(() => {
                       btnon($(".btn-3"));
                     })
                 } else {
-                  alert("제목 및 필수 선택 사항 입력 필요")
+                  Swal.fire({
+                    icon: 'question',
+                    title: '제목 및 필수 선택 사항 입력 필요',
+                    width: 400,
+                    height: 320,
+                    showConfirmButton: false,
+                    timer: 750
+                  });
                 }
                 // .then((response) => response.json())
                 // .then((data) => console.log(data));
@@ -493,24 +482,6 @@ $(".btn-1").click(() => {
                   className="form-check-input mt-0"
                   type="checkbox"
                   defaultValue="치통"
-                  aria-label="Checkbox for following text input"
-                />
-              </div>
-              <div className="input-group-text">
-                <span className="font13" style={{ marginRight: 2 }}>증상1</span>
-                <input
-                  className="form-check-input mt-0"
-                  type="checkbox"
-                  defaultValue="증상1"
-                  aria-label="Checkbox for following text input"
-                />
-              </div>
-              <div className="input-group-text">
-                <span className="font13" style={{ marginRight: 2 }}>증상2</span>
-                <input
-                  className="form-check-input mt-0"
-                  type="checkbox"
-                  defaultValue="증상2"
                   aria-label="Checkbox for following text input"
                 />
               </div>
@@ -709,7 +680,7 @@ $(".btn-1").click(() => {
                     .then(data => {
                       let bno = data.no;
                       submitFiles(bno);
-                      alert("인증 번호(비회원 작성글 조회시에 필요 합니다) : " + data.serial);
+                      Swal.fire(`인증 번호\n(작성글 조회시에 필요 합니다)\n[ ${data.serial} ]`);
                     })
                     .then(() => {
                       stat = 0
@@ -720,7 +691,14 @@ $(".btn-1").click(() => {
                       btnon($(".btn-3"));
                     })
                 } else {
-                  alert("제목 및 필수 선택 사항 입력 필요")
+                  Swal.fire({
+                    icon: 'question',
+                    title: '제목 및 필수 선택 사항 입력 필요',
+                    width: 400,
+                    height: 320,
+                    showConfirmButton: false,
+                    timer: 750
+                  });
                 }
                 // .then((response) => response.json())
                 // .then((data) => console.log(data));
@@ -808,7 +786,14 @@ $(".btn-2").click(() => {
                   })
                 $(".insert-title").val("")
               } else {
-                alert("검색어 입력 필요")
+                Swal.fire({
+                  icon: 'question',
+                  title: '검색어 입력 필요',
+                  width: 400,
+                  height: 320,
+                  showConfirmButton: false,
+                  timer: 750
+                });
               }
 
             }}>
@@ -848,7 +833,7 @@ $(".btn-2").click(() => {
                   <div className="new-window-tag">요통</div>
                   <div className="new-window-tag">치통</div>
                   <div className="new-window-tag">증상1</div>
-                  <div className="new-window-tag">증상2</div>
+                  <div className="new-window-tag">증상2</div> 
                   <div className="new-window-tag">증상3</div>
                   <div className="new-window-tag">증상4</div>
                   <div className="new-window-tag">증상5</div>
@@ -918,7 +903,14 @@ $(".btn-3").click(() => {
           />
           <button type="button" className="btn btn-warning search-board-btn" onClick={() => {   // 비회원 작성글 비밀번호 조회 버튼 눌렸을 때 액션
             if ($(".search-board").val().length <= 4) {
-              alert("잘못된 일련번호 입니다")
+              Swal.fire({
+                icon: 'error',
+                title: '잘못된 일련번호',
+                width: 400,
+                height: 320,
+                showConfirmButton: false,
+                timer: 750
+              });
               return;
             }
             fetch("http://175.106.99.31/boardPassword", {
@@ -938,7 +930,14 @@ $(".btn-3").click(() => {
                   location.href = "patients-record-be.html?no=" + no;
 
                 } else {
-                  alert("잘못된 비밀번호 입니다")
+                  Swal.fire({
+                    icon: 'error',
+                    title: '잘못된 비밀번호 입니다',
+                    width: 400,
+                    height: 320,
+                    showConfirmButton: false,
+                    timer: 750
+                  });
                 }
               })
           }}>
@@ -1084,6 +1083,27 @@ setTimeout(() => {
     scrollmov(0)
   }
 }, 500);
+let bol = true;
+setInterval(() => {
+  if ($(document).scrollLeft() == 0) {
+    scrollmov(screen.availWidth*1)
+  }else if ($(document).scrollLeft() <= screen.availWidth*1) {
+    if(bol) {
+      scrollmov(screen.availWidth*2);
+      bol = !bol;
+    }else {
+      scrollmov(screen.availWidth*0);
+      bol = !bol;
+    }
+  }else if ($(document).scrollLeft() <= screen.availWidth*2) {
+    scrollmov(screen.availWidth*1)
+  }else if ($(document).scrollLeft() <= screen.availWidth*3) {
+    scrollmov(screen.availWidth)
+  }else {
+    console.log($(document).scrollLeft())
+    scrollmov(0)
+  }
+}, 5000);
 
 
 // $(".body-cover").css("height", screen.availHeight)

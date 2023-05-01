@@ -87,7 +87,7 @@ public class App {
 
 
 
-    long ran = (long) ((Math.random() * (999999999999l - 111111111111l)) + 111111111111l);
+    long ran = (long) ((Math.random() * (999999 - 111111)) + 111111);
 
     System.out.println(ran);
 
@@ -100,7 +100,7 @@ public class App {
       throws JsonProcessingException, RestClientException, URISyntaxException {
     long ran = 0;
     while (true) {
-      ran = (long) ((Math.random() * (999999999999l - 111111111111l)) + 111111111111l);
+      ran = (long) ((Math.random() * (999999 - 111111)) + 111111);
       List<Board> boards = boardService.list("");
       for (int i = 0; i < boards.size(); i++) {
         // if (Long.parseLong(boards.get(i).getPid()) == ran) {
@@ -270,11 +270,11 @@ public class App {
     Board board = new Board();
 
     String str = "";
-    str += param.get("name") + ",";
-    str += param.get("age") + ",";
-    str += param.get("gender") + ",";
-    str += param.get("tel") + ",";
-    str += param.get("addr") + ",";
+    str += param.get("name") + "@";
+    str += param.get("age") + "@";
+    str += param.get("gender") + "@";
+    str += param.get("tel") + "@";
+    str += param.get("addr") + "@";
     str += param.get("another");
 
     board.setNo((int) param.get("no"));

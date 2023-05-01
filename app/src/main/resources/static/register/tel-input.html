@@ -79,6 +79,7 @@
   </div>
   <!-- JavaScript Bundle with Popper -->
   <!-- 사용자가 추가한 스크립트 -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
@@ -107,7 +108,7 @@
       fetch(`http://175.106.99.31/phone`, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json; charset=utf-8'
+          'Content-Type': 'application/json; charset=utf-8' 
         },
         body: JSON.stringify({
           tel: document.querySelector(".tel-insert").value
@@ -150,15 +151,38 @@
         .then(data => {
           console.log(data)
           if (data.status == "success") {
-            
-            alert("인증 되었습니다.")
-            setParentText()
+            Swal.fire({
+              icon: 'success',
+              title: '인증 완료되었습니다',
+              width: 400,
+              height: 320,
+              showConfirmButton: false,
+              timer: 750
+            })
+            setTimeout(() => {
+                exit();
+              setParentText();
+            }, 850);
+            // alert("인증 되었습니다.")
           } else {
             if(data.data == "중복된 연락처") {
-              alert("중복된 연락처 입니다.")
-              exit()
+              Swal.fire({
+                icon: 'error',
+                title: '이미 등록된 연락처 입니다',
+                width: 400,
+                height: 320,
+                showConfirmButton: false,
+                timer: 750
+              });
+              setTimeout(() => {
+                exit();
+              }, 850);
             }else {
-              alert("틀린 인증번호.")
+              Swal.fire({
+                title: '틀린 인증번호',
+                width: 320,
+                height: 200
+              });
             }
           }
         })

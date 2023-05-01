@@ -1,6 +1,7 @@
 let doctorNo = 0;
 let samePw = false;
 doctorNo = 0;
+let gen = false;
 
 fetch(`http://175.106.99.31/auth/user`, {
   method: 'GET',
@@ -35,7 +36,7 @@ fetch(`http://175.106.99.31/auth/user`, {
     } else {
       location.href = '../auth/doctors-login.html';
     }
-  })
+  }) 
   .then((user) => {
     if (!user.passwordcheck) location.href = 'doctors-profile-auth.html';
     if (user.hosName !== undefined) {
@@ -53,7 +54,7 @@ fetch(`http://175.106.99.31/auth/user`, {
           if (data.status == 'success') {
             data = data.data;
             console.log(data);
-
+            gen = data.gender;
             let imgUrl = '';
 
             if (data.phoUrl != 'undefined') {
@@ -135,7 +136,7 @@ fetch(`http://175.106.99.31/auth/user`, {
                   <input type="text" class="form-control change-career" value="${career}">
                 </div>
                 <div class="col-lg-1 btn-list">
-                  <button type="button" class="btn btn-outline-danger btn-sm remove-career-btn">×</button>
+                  <button type="button" class="btn btn-outline-danger btn-sm remove-career-btn" style="width: 32px"> × </button>
                 </div>
               `;
               registerCareerList.appendChild(oldRow);
@@ -156,7 +157,7 @@ fetch(`http://175.106.99.31/auth/user`, {
             <input type="text" class="form-control change-career">
           </div>
           <div class="col-lg-1 btn-list">
-            <button type="button" class="btn btn-outline-danger btn-sm remove-career-btn">×</button>
+            <button type="button" class="btn btn-outline-danger btn-sm remove-career-btn" style="width: 32px"> × </button>
           </div>
         `;
               registerCareerList.appendChild(newRow);
@@ -206,7 +207,7 @@ $('.change-btn').click(() => {
   const roadAddress = document.getElementById('roadAddress').value;
   const detailAddress = document.getElementById('detailAddress').value;
   formData.append('addr', `${zipcode}, ${roadAddress}, ${detailAddress}`);
-  // formData.append("gender", '1');
+  formData.append("gender", gen);
   formData.append('email', document.querySelector('.change-email').value);
   formData.append('hosNo', document.querySelector('.change-hospitalNo').value);
   const career = document.querySelectorAll('.change-career');
@@ -260,14 +261,37 @@ $('.change-pw-btn').click(() => {
       .then((response) => response.json())
       .then((data) => {
         if (data.status == 'success') {
-          alert('비밀번호 정상적으로 변경됨');
-          window.location = '';
+          Swal.fire({
+            icon: 'success',
+            title: '비밀번호 정상적으로 변경됨',
+            width: 420,
+            height: 250,
+            showConfirmButton: false,
+            timer: 750
+          });
+          setTimeout(() => {
+            window.location = '';
+          }, 800);
         } else {
-          alert('기존 비밀번호와 다름');
+          Swal.fire({
+            icon: 'question',
+            title: '기존 비밀번호와 다름',
+            width: 420,
+            height: 250,
+            showConfirmButton: false,
+            timer: 750
+          });
         }
       });
   } else {
-    alert('비밀번호 확인 과 입력 비밀번호가 다르거나 기존 비밀번호와 동일');
+    Swal.fire({
+      icon: 'error',
+      title: '기존 비밀번호와 동일',
+      width: 650,
+      height: 350,
+      showConfirmButton: false,
+      timer: 750
+    });
   }
 });
 
@@ -352,7 +376,7 @@ $('.change-pw-btn').click(() => {
 
 // });
 
-var popupWidth = 320;
+var popupWidth = 470;
 var popupHeight = 450;
 
 var popupX = window.screen.width / 2 - popupWidth / 2;
@@ -374,7 +398,7 @@ function calltel() {
   );
 }
 
-var hosPopupWidth = 1080;
+var hosPopupWidth = 1090;
 var hosPopupHeight = 450;
 
 var hosPopupX = window.screen.width / 2 - hosPopupWidth / 2;

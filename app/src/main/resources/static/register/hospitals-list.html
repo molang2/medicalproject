@@ -78,8 +78,7 @@
 
     <div class="d-flex align-items-center justify-content-between">
       <a class="logo d-flex align-items-center">
-       <!--  <img src="assets/img/newlogo.png" alt=""> -->
-        <span class="d-none d-lg-block">P DC</span>
+        <img src="../register/assets/img/headerlogo-d.png">
       </a>
       <i class="bi bi-list toggle-sidebar-btn"></i>
     </div>
@@ -186,17 +185,12 @@
           <div class="col-12">
             <div class="card">
               <div class="card-body">
+                <button type="button" style="margin-top: 15px;" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                  병원추가
+                </button>               
                 <h4 class="card-title" style="float: right;">
-                  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
-                    style="background-color: #77DD77; color: #FFFFFF; border: none; height:40px; border-radius: 5px 5px 5px 5px;">
-                    병원추가
-                  </button>
-                  <strong style="margin-left: 710px;">병원정보검색</strong>
-                  <input type="text" id="search-input" placeholder="병원명,주소,진료과목         🔍">
+                <input type="text" id="search-input" class="form-control" placeholder="병원정보검색">
                 </h4>
-                <!-- <p>Add lightweight datatables to your project with using the <a href="https://github.com/fiduswriter/Simple-DataTables" target="_blank">Simple DataTables</a> library. Just add <code>.datatable</code> class name to any table you wish to conver to a datatable</p> -->
-
-                <!-- Table with stripped rows -->
                 <table id="foo-table" class="table table-hover">
                   <thead>
                     <tr>
@@ -247,30 +241,30 @@
                                 margin: 0;
                             }
                           </style>
-                        <form id="hospital-list">
-                          <tbody class="table-group-divider">
-                            <div class="hospital-list-css">
-                              <tr>
-                                <td><input id="hosName" class="hos-name" type="text" placeholder='병원이름' /></td>
-                                <td><input id="hosAddr" class="hos-addr" type="text" placeholder='주소'/></td>
-                                <td><input id="hosTel" class="hos-tel" type="number" placeholder="'-' 없이 입력"
-                                   maxlength="11"
-                                    oninput="changeNo()" required /></td>
-                                  <script>
-                                    function changeNo(){
-                                      if( document.querySelector(".hos-tel").value.length > document.querySelector(".hos-tel").maxLength) {
-                                        document.querySelector(".hos-tel").value = document.querySelector(".hos-tel").value.substring(0,11);
+                          <form id="hospital-list">
+                            <tbody class="table-group-divider">
+                              <div class="hospital-list-css">
+                                <tr>
+                                  <td class="mb-3"><input id="hosName" class="hos-name form-control" type="text" placeholder='병원이름' /></td>
+                                  <td class="mb-3"><input id="hosAddr" class="hos-addr form-control" type="text" placeholder='주소'/></td>
+                                  <td class="mb-3"><input id="hosTel" class="hos-tel form-control" type="number" placeholder="'-' 없이 입력"
+                                    maxlength="11"
+                                      oninput="changeNo()" required /></td>
+                                    <script>
+                                      function changeNo(){
+                                        if( document.querySelector(".hos-tel").value.length > document.querySelector(".hos-tel").maxLength) {
+                                          document.querySelector(".hos-tel").value = document.querySelector(".hos-tel").value.substring(0,11);
+                                        }
                                       }
-                                    }
-                                  </script>
-                                <td><input id="hosTime" class="hos-time" type="text"
-                                    placeholder="예:월~금 08시~18시30분,토 휴진" /></td>
-                                <td><input id="hosSub" class="hos-sub" type="text" placeholder="예: 가정의학과,소아과" /></td>
-                                <td><input id="hosPwd" class="hos-pwd" type="password" placeholder="비밀번호를 4자이상 입력"/></td>                      
-                                <form>
-                                  <td><input type="file" id="hosPhoto" class="hos-photo hospital-files"
-                                      style="width: 220px;" accept="image/*" multiple></td>
-                                </form>
+                                    </script>
+                                  <td class="mb-3"><input id="hosTime" class="hos-time form-control" type="text"
+                                      placeholder="예:월~금 08시~18시30분,토 휴진" /></td>
+                                  <td class="mb-3"><input id="hosSub" class="hos-sub form-control" type="text" placeholder="예: 가정의학과,소아과" /></td>
+                                  <td class="mb-3"><input id="hosPwd" class="hos-pwd form-control" type="password" placeholder="비밀번호를 4자이상 입력"/></td>                      
+                                  <form>
+                                    <td class="mb-3"><input type="file" id="hosPhoto" class="hos-photo hospital-files form-control"
+                                        style="width: 220px;" accept="image/*" multiple></td>
+                                  </form>
                                 </tr>
                               </div>
                             </tbody>
@@ -282,10 +276,9 @@
                       </div>
                       <div class="modal-footer justify-content-between">
 
-                        <button type="button" class="btn btn-secondary mr-auto" onclick="location.reload()"
+                        <button type="button" class="btn btn btn-outline-dark mr-auto" onclick="location.reload()"
                           data-bs-dismiss="modal">Close</button>
-                        <button type="button" id="btn-submit" class=" btn btn-secondary"
-                          style="background-color: #77DD77; color: #FFFFFF; border: none; height:40px; border-radius: 5px 5px 5px 5px;">병원추가</button>
+                        <button type="button" id="btn-submit" class=" btn btn-outline-success" >병원추가</button>
                       </div>
                     </div>
                   </div>
@@ -332,6 +325,7 @@
       class="bi bi-arrow-up-short"></i></a>
 
   <!-- Vendor JS Files -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="../assets/vendor/apexcharts/apexcharts.min.js"></script>
   <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="../assets/vendor/chart.js/chart.umd.js"></script>
@@ -445,7 +439,14 @@
         renderDataList(dataList);
       })
       .catch((err) => {
-        alert('서버 요청 오류!');
+        Swal.fire({
+          icon: 'error',
+          title: '서버 요청 오류',
+          width: 400,
+          height: 320,
+          showConfirmButton: false,
+          timer: 750
+        });
         console.log(err);
       });
     // tel 변수
@@ -497,7 +498,14 @@
     fileInput.addEventListener('change', function(e) {
       let files = e.target.files;
       if (files.length > 3) {
-        alert('파일 첨부 개수는 3개 이상이 될 수 없습니다.');
+        Swal.fire({
+          icon: 'question',
+          title: '파일 첨부 개수는 3개 이상이 될 수 없습니다.',
+          width: 400,
+          height: 320,
+          showConfirmButton: false,
+          timer: 750
+        });
         // 최대 첨부 가능한 파일 개수를 넘어서는 경우, 파일 선택을 초기화합니다.
         fileInput.value = '';
       }
@@ -507,18 +515,41 @@
 
     document.querySelector('#btn-submit').onclick = (e) => {
       const hosNameInput = document.querySelector('#hosName');
-      const pwdInput = document.querySelector('#hosPwd');
+      const pwdInput = document.querySelector('#hosPwd');    
+
 
        if(hosNameInput.value == ""){
-        alert('병원명을 입력해주세요.');
+        Swal.fire({
+          icon: 'question',
+          title: '병원명을 입력해주세요.',
+          width: 400,
+          height: 320,
+          showConfirmButton: false,
+          timer: 750
+        });
         return false;
       }
 
       if(pwdInput.value == "" || pwdInput.value.length < 4){
-        alert('비밀번호를 4자 이상 입력해주세요.');
+        Swal.fire({
+          icon: 'error',
+          title: '비밀번호를 4자 이상 입력해주세요.',
+          width: 400,
+          height: 320,
+          showConfirmButton: false,
+          timer: 750
+        });
         return false;
       }
       if (hosTel.value === '' || hosTel.value.length < 7) {
+        Swal.fire({
+          icon: 'error',
+          title: '전화번호를 7자 이상 입력해주세요.',
+          width: 400,
+          height: 320,
+          showConfirmButton: false,
+          timer: 750
+        });
         return false;
       }
       document.getElementById("btn-submit").style.display = "none";

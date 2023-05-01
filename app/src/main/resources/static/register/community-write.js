@@ -1,6 +1,10 @@
 // 로그인 정보 가져오기
 let myno = 0;
 
+document.querySelector('#former-btn').onclick = (e) => {
+  location.href= "doctors-community-main.html"
+}
+
 fetch(`http://175.106.99.31/auth/user`, {
   method: "GET",
 })
@@ -48,6 +52,38 @@ fetch(`http://175.106.99.31/auth/user`, {
 
 // 게시글 입력
 document.querySelector(".btn-submit").onclick = (e) => {
+  if(document.querySelector("#title").value.length < 2 || document.querySelector("#title").value == " " || document.querySelector("#title").value == "  ") {
+    Swal.fire({
+      icon: 'error',
+      title: '게시글은 반드시 2글자 이상 입력이 필요합니다',
+      width: 400,
+      height: 320,
+      showConfirmButton: false,
+      timer: 750
+    })
+    return;
+  }else if(!(Number(document.querySelector("#category").value) > 0)) {
+    Swal.fire({
+      icon: 'error',
+      title: '커뮤니티 항목이 선택되지 않았습니다',
+      width: 400,
+      height: 320,
+      showConfirmButton: false,
+      timer: 750
+    })
+    return;
+  }else if(document.querySelector(".content").value.length < 1 || document.querySelector(".content").value == " ") {
+    Swal.fire({
+      icon: 'error',
+      title: '글 내용이 입력되지 않았습니다',
+      width: 400,
+      height: 320,
+      showConfirmButton: false,
+      timer: 750
+    })
+    return;
+  }
+
   fetch("http://175.106.99.31/community", {
     method: "POST",
     headers: {

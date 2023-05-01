@@ -100,7 +100,7 @@
                         <label
                           for="id-input"
                           class="col-sm-2 form-label padding-right-0"
-                          >ID</label
+                          >ID<span class="required">*</span></label
                         >
                         <div class="col-sm-5">
                           <input
@@ -132,7 +132,7 @@
                         <label
                           for="password"
                           class="col-sm-2 form-label padding-right-0"
-                          >비밀번호</label
+                          >비밀번호<span class="required">*</span></label
                         >
                         <div class="col-sm-5">
                           <input
@@ -155,7 +155,7 @@
                         <label
                           for="confirmPassword"
                           class="col-sm-2 form-label padding-right-0"
-                          >비밀번호 확인</label
+                          >비밀번호 확인<span class="required">*</span></label
                         >
                         <div class="col-sm-5">
                           <input
@@ -175,7 +175,7 @@
                         <label
                           for="name"
                           class="col-sm-2 form-label padding-right-0"
-                          >이름</label
+                          >이름<span class="required">*</span></label
                         >
                         <div class="col-sm-5">
                           <input
@@ -192,7 +192,7 @@
                         <label
                           for="tel"
                           class="col-sm-2 form-label padding-right-0"
-                          >휴대폰번호</label
+                          >휴대폰번호<span class="required">*</span></label
                         >
                         <div class="col-sm-5">
                           <input
@@ -222,7 +222,7 @@
                         </button>
                       </div>
                       <script>
-                        var popupWidth = 320;
+                        var popupWidth = 470;
                         var popupHeight = 450;
 
                         var popupX = window.screen.width / 2 - popupWidth / 2;
@@ -249,7 +249,7 @@
                         <label
                           for="birth"
                           class="col-sm-2 form-label padding-right-0"
-                          >생년월일</label
+                          >생년월일<span class="required">*</span></label
                         >
                         <div class="col-sm-5">
                           <input
@@ -266,7 +266,7 @@
                         <label
                           for="email-id"
                           class="col-sm-2 form-label padding-right-0"
-                          >이메일</label
+                          >이메일<span class="required">*</span></label
                         >
                         <div class="col-sm-3">
                           <input
@@ -305,7 +305,7 @@
 
                       <div class="row mb-3">
                         <label class="col-sm-2 form-label padding-right-0">
-                          성별
+                          성별<span class="required">*</span>
                         </label>
                         <div class="col-sm-5">
                           <div class="form-check form-check-inline">
@@ -340,7 +340,7 @@
                         <label
                           for="inputPostNo"
                           class="col-sm-2 form-label padding-right-0"
-                          >주소</label
+                          >주소<span class="required">*</span></label
                         >
                         <div class="col-sm-3">
                           <input
@@ -415,7 +415,7 @@
 
                       <div class="row mb-3">
                         <label class="col-sm-2 form-label padding-right-0"
-                          >자격</label
+                          >자격<span class="required">*</span></label
                         >
                         <div class="col-sm-5">
                           <select id="license" class="form-select" required>
@@ -437,7 +437,7 @@
 
                       <div class="row mb-3" id="license-file-row">
                         <label class="col-sm-2 form-label padding-right-0"
-                          >면허/자격</label
+                          >면허/자격<span class="required">*</span></label
                         >
                         <div class="col-sm-5">
                           <input
@@ -530,6 +530,7 @@
     </main>
 
     <!-- Vendor JS Files -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="../assets/vendor/apexcharts/apexcharts.min.js"></script>
     <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="../assets/vendor/chart.js/chart.umd.js"></script>
@@ -882,7 +883,7 @@
             <input type="text" placeholder="학력 사항" class="form-control career">
           </div>
           <div class="col-sm-1 btn-list">
-            <button type="button" class="btn btn-outline-danger btn-sm remove-degree-btn">×</button>
+            <button type="button" class="btn btn-outline-danger btn-sm remove-degree-btn" style="width: 32px"> × </button>
           </div>
         `;
         registerDegreeList.appendChild(newRow);
@@ -915,7 +916,7 @@
             <input type="text" placeholder="경력 사항" class="form-control career">
           </div>
           <div class="col-sm-1 btn-list">
-            <button type="button" class="btn btn-outline-danger btn-sm remove-career-btn">×</button>
+            <button type="button" class="btn btn-outline-danger btn-sm remove-career-btn" style="width: 32px"> × </button>
           </div>
         `;
         registerCareerList.appendChild(newRow);
@@ -935,7 +936,7 @@
 
       // 회원가입 버튼 클릭
       document.getElementById('btn-insert').addEventListener('click', () => {
-        $('#btn-insert').prop('disabled', true);
+        // $('#btn-insert').prop('disabled', true);
         const form = document.getElementById('doctors-register-form');
         const formData = new FormData(form);
 
@@ -1032,7 +1033,14 @@
                   console.log('성공:', result);
                   return result.data.no;
                 } else {
-                  alert('입력실패');
+                  Swal.fire({
+                    icon: 'error',
+                    title: '입력 실패',
+                    width: 400,
+                    height: 320,
+                    showConfirmButton: false,
+                    timer: 750
+                  });
                   console.log(result.data);
                 }
               })
@@ -1046,7 +1054,14 @@
                 });
               })
               .catch((exception) => {
-                alert('입력 중 오류 발생');
+                Swal.fire({
+                    icon: 'error',
+                    title: '입력 중 오류발생',
+                    width: 400,
+                    height: 320,
+                    showConfirmButton: false,
+                    timer: 750
+                  });
                 console.log(exception);
               });
           });

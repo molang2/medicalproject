@@ -66,8 +66,8 @@
     <!-- ======= Header ======= -->
     <header id="header" class="header fixed-top d-flex align-items-center">
       <div class="d-flex align-items-center justify-content-between">
-        <a href="index.html" class="logo d-flex align-items-center">
-          <span class="d-none d-lg-block">P DC</span>
+        <a class="logo d-flex align-items-center">
+          <img src="../register/assets/img/headerlogo-d.png">
         </a>
         <i class="bi bi-list toggle-sidebar-btn"></i>
       </div>
@@ -213,7 +213,7 @@
                       <button
                         type="button"
                         id="check-password-btn"
-                        class="btn btn-primary"
+                        class="btn btn-outline-secondary"
                       >
                         확인
                       </button>
@@ -405,7 +405,6 @@
               // passwordValidationMsg.style.color = '#198754';
               location.replace("./doctors-profile.html");
             } else {
-              alert("잘못 된 회원 정보");
               passwordValidationMsg.textContent = "비밀번호가 틀립니다.";
               passwordInput.classList.remove("is-valid", "is-invalid");
               passwordInput.classList.add("is-invalid");
@@ -457,7 +456,6 @@
                   // passwordValidationMsg.style.color = '#198754';
                   location.replace("./doctors-profile.html");
                 } else {
-                  alert("잘못 된 회원 정보");
                   passwordValidationMsg.textContent = "비밀번호가 틀립니다.";
                   passwordInput.classList.remove("is-valid", "is-invalid");
                   passwordInput.classList.add("is-invalid");

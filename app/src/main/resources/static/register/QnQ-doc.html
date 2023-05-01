@@ -40,8 +40,7 @@
   <header id="header" class="header fixed-top d-flex align-items-center">
     <div class="d-flex align-items-center justify-content-between">
       <a class="logo d-flex align-items-center">
-        <!--  <img src="assets/img/newlogo.png" alt=""> -->
-        <span class="d-none d-lg-block">P DC</span>
+        <img src="../register/assets/img/headerlogo-d.png">
       </a>
       <i class="bi bi-list toggle-sidebar-btn"></i>
     </div>
@@ -195,26 +194,15 @@
             background-color: white;
             border: 3px solid rgb(211, 235, 244);
           }
-          
           .chat-right {}
 
           .chat-right div {
            width: 300px;
 		        float: right;
-		        background-color: white;
-		        border: 3px solid rgb(211, 235, 244);
+		        background-color: rgb(255, 229, 135);
+		        border: 3px solid  rgb(255, 229, 135);
 		      }
-          
-          .chat-right div:before {
-            content: '';
-            position: absolute;
-            right: -15px;
-            top: 10px;
-            border-width: 15px 15px 0 0;
-            border-style: solid;
-            border-color: rgb(211, 235, 244) transparent transparent transparent;
-          }
-
+         
         #q-content{
           font-weight: bolder;
         }
@@ -264,7 +252,7 @@
         <div class="chat-send-cover">
           <div class="input-group mb-3">
             <input type="text" class="form-control chat-text" maxlength="32" placeholder="문의 사항을 입력해주세요"
-              aria-label="Recipient's username" aria-describedby="button-addon2">
+              aria-describedby="button-addon2" style="z-index:0 !important">
             <button class="btn btn-outline-secondary chat-btn" type="button" id="button-addon2" style="z-index:0 !important">입력</button>
           </div>
         </div>
@@ -315,6 +303,7 @@
   </a>
 
   <!-- Vendor JS Files -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="assets/vendor/chart.js/chart.umd.js"></script>

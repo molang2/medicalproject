@@ -65,8 +65,7 @@
     <header id="header" class="header fixed-top d-flex align-items-center">
       <div class="d-flex align-items-center justify-content-between">
         <a class="logo d-flex align-items-center">
-          <!--  <img src="assets/img/newlogo.png" alt=""> -->
-          <span class="d-none d-lg-block">P DC</span>
+          <img src="../register/assets/img/headerlogo.png">
         </a>
         <i class="bi bi-list toggle-sidebar-btn"></i>
       </div>
@@ -343,13 +342,37 @@
                         </div>
                         <button
                           type="button"
-                          onclick="tel()"
+                          onclick="calltel()"
                           class="btn btn-secondary col-md-2"
                           style="height: 90%"
                         >
                           변경 / 인증
                         </button>
                       </div>
+
+                      <script>
+                        var popupWidth = 470;
+                        var popupHeight = 450;
+
+                        var popupX = window.screen.width / 2 - popupWidth / 2;
+
+                        var popupY = window.screen.height / 2 - popupHeight / 2;
+
+                        function calltel() {
+                          window.open(
+                            'tel-input.html',
+                            'popupNo1',
+                            'status=no, height=' +
+                              popupHeight +
+                              ', width=' +
+                              popupWidth +
+                              ', left=' +
+                              popupX +
+                              ', top=' +
+                              popupY
+                          );
+                        }
+                      </script>
 
                       <div class="row mb-3">
                         <label
@@ -393,14 +416,6 @@
                             readonly
                           />
                         </div>
-                        <button
-                          type="button"
-                          onclick="tel()"
-                          class="btn btn-secondary col-md-2"
-                          style="height: 90%"
-                        >
-                          변경 / 인증
-                        </button>
                       </div>
 
                       <div class="row mb-3">
@@ -508,7 +523,7 @@
                       <div class="text-center">
                         <button
                           type="button"
-                          class="btn btn-primary change-pw-btn"
+                          class="btn btn-outline-secondary change-pw-btn"
                         >
                           변경하기
                         </button>
@@ -594,6 +609,7 @@
     ></a>
 
     <!-- Vendor JS Files -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
     <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="assets/vendor/chart.js/chart.umd.js"></script>
